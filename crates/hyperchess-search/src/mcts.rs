@@ -23,9 +23,13 @@
 //! `mcts_with_eval` accepts an external leaf-evaluation closure so the CUDA
 //! CLI can inject `gpu_batch_eval` for batched GPU leaf scoring. Leaves pending
 //! evaluation carry a **virtual loss** so one batch explores distinct paths.
-//! [`mating_technique_bonus_cp`]'s KX-vs-K shaping only runs in the CPU
-//! rollout ([`mcts_bounded`]'s leaf scoring) — the external-evaluator path
-//! scores leaves however the caller's `eval_fn` does, unchanged.
+//! [`mating_technique_bonus_cp`] is `pub` specifically so the external-evaluator
+//! path can apply the same KX-vs-K shaping on top of its own raw eval before
+//! handing scores back to [`mcts_with_eval`]/[`mcts_with_eval_bounded`] —
+//! `hyperchess-search-cuda`'s `eval_batch` does exactly this, so GPU-backed
+//! MCTS gets the identical mop-up gradient the CPU rollout does. A caller
+//! that ignores it (as this crate's own tests' stub closures do) just gets
+//! plain material/positional scoring with no mop-up term, same as before.
 
 use hyperchess_rules::tools::prng::PRNG;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -96,7 +100,13 @@ fn edge_distance(sq: hyperchess_rules::SQ) -> i32 {
 /// Returns a value from the **material-favoured side's** perspective — the
 /// caller mirrors it by side-to-move exactly as [`evaluate`] mirrors its own
 /// White-relative computation.
-fn mating_technique_bonus_cp(board: &Board) -> (Player, i32) {
+///
+/// `pub` (not just crate-internal): `hyperchess-search-cuda`'s `eval_batch`
+/// applies this same term to both its GPU and CPU-fallback leaf scores, so
+/// GPU-backed MCTS gets the identical mop-up gradient the CPU rollout below
+/// does — see that crate's `cuda_mcts.rs` for the batched equivalent of
+/// [`leaf_score`].
+pub fn mating_technique_bonus_cp(board: &Board) -> (Player, i32) {
     let white_material = side_material_cp(board, Player::White);
     let black_material = side_material_cp(board, Player::Black);
     let (strong, weak, strong_material, weak_material) = if white_material >= black_material {

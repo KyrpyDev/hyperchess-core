@@ -21,7 +21,7 @@ use std::sync::atomic::AtomicBool;
 use hyperchess_rules::board::Board;
 use hyperchess_rules::core::piece_move::HyperMove;
 use hyperchess_rules::tools::eval::evaluate;
-use hyperchess_search::mcts::mcts_with_eval_bounded;
+use hyperchess_search::mcts::{mating_technique_bonus_cp, mcts_with_eval_bounded};
 
 #[cfg(feature = "cuda")]
 use crate::cuda_backend::gpu_batch_eval;
@@ -66,27 +66,43 @@ pub fn mcts_cuda_bounded(
 /// board's side-to-move perspective.
 ///
 /// Uses GPU batch eval when the `cuda` feature is compiled in; falls back
-/// to per-position CPU eval otherwise.
+/// to per-position CPU eval otherwise. Either way, applies the same
+/// [`mating_technique_bonus_cp`] KX-vs-K mop-up shaping the CPU rollout's
+/// `leaf_score` uses (see `hyperchess_search::mcts`'s module docs), on top of
+/// the raw eval, before the shared ±3000cp clamp — so GPU-backed MCTS gets
+/// the same "drive toward mate in a won position" gradient the CPU path has,
+/// not just plain material/positional scoring that saturates once a side is
+/// hugely ahead.
 fn eval_batch(boards: &[Board]) -> Vec<f64> {
-    #[cfg(feature = "cuda")]
-    {
-        match gpu_batch_eval(boards) {
-            Ok(scores) => {
-                return scores
-                    .into_iter()
-                    .map(|s| (s as f64).clamp(-3000.0, 3000.0) / 3000.0)
-                    .collect();
-            }
-            Err(e) => {
-                eprintln!("[cuda_mcts] GPU eval failed: {e}; falling back to CPU");
+    let raw_cp: Vec<i32> = {
+        #[cfg(feature = "cuda")]
+        {
+            match gpu_batch_eval(boards) {
+                Ok(scores) => scores,
+                Err(e) => {
+                    eprintln!("[cuda_mcts] GPU eval failed: {e}; falling back to CPU");
+                    boards.iter().map(|b| evaluate(b) as i32).collect()
+                }
             }
         }
-    }
+        #[cfg(not(feature = "cuda"))]
+        {
+            boards.iter().map(|b| evaluate(b) as i32).collect()
+        }
+    };
 
-    // CPU fallback
     boards
         .iter()
-        .map(|b| (evaluate(b) as f64).clamp(-3000.0, 3000.0) / 3000.0)
+        .zip(raw_cp)
+        .map(|(board, stm_eval)| {
+            let (strong, bonus_cp) = mating_technique_bonus_cp(board);
+            let signed_bonus = if board.turn() == strong {
+                bonus_cp
+            } else {
+                -bonus_cp
+            };
+            ((stm_eval + signed_bonus) as f64).clamp(-3000.0, 3000.0) / 3000.0
+        })
         .collect()
 }
 
@@ -162,4 +178,44 @@ pub fn mcts_cuda_parallel_bounded(
         .max_by_key(|m| tally.get(&m.get_raw()).copied().unwrap_or(0))
         .copied()
         .unwrap_or(HyperMove::null())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Runs without the `cuda` feature (this crate's default), so it only
+    /// exercises `eval_batch`'s CPU-fallback branch -- but that branch shares
+    /// the exact same post-processing (raw eval + signed mating-technique
+    /// bonus, then clamp) as the GPU-success branch, so this still catches a
+    /// regression in the shared arithmetic/sign-flip logic either way.
+    #[test]
+    fn eval_batch_applies_the_same_mating_technique_bonus_as_the_cpu_leaf_score() {
+        let hfen = "k11/12/12/12/12/12/12/12/2QRBN6/12/12/K11";
+        let white_to_move = Board::from_hfen(&format!("{hfen} w - - 0 1")).unwrap();
+        let black_to_move = Board::from_hfen(&format!("{hfen} b - - 0 1")).unwrap();
+
+        for board in [white_to_move, black_to_move] {
+            let (strong, bonus_cp) = mating_technique_bonus_cp(&board);
+            assert_ne!(
+                bonus_cp, 0,
+                "expected a non-zero mop-up bonus in this KX-vs-bare-king position -- \
+                 otherwise this test would pass trivially even if eval_batch dropped it"
+            );
+            let signed_bonus = if board.turn() == strong {
+                bonus_cp
+            } else {
+                -bonus_cp
+            };
+            let expected =
+                ((evaluate(&board) as i32 + signed_bonus) as f64).clamp(-3000.0, 3000.0) / 3000.0;
+
+            let actual = eval_batch(std::slice::from_ref(&board))[0];
+            assert!(
+                (actual - expected).abs() < 1e-9,
+                "eval_batch = {actual}, expected {expected} (raw eval + mating-technique \
+                 bonus, matching hyperchess_search::mcts::leaf_score's formula)"
+            );
+        }
+    }
 }
