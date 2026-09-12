@@ -125,7 +125,7 @@ mod tests {
     #[test]
     fn test_knight_corner() {
         // Knight at a1 (SQ 0)
-        let hfen = "12/12/12/12/12/12/12/12/12/12/K11/N11 w - - 0 1";
+        let hfen = "11k/12/12/12/12/12/12/12/12/12/K11/N11 w - - 0 1";
         let board = Board::from_hfen(hfen).unwrap();
         let count = count_moves_from(&board, SQ::make(0, 0)); // a1
                                                               // From a1, knight can go to: b3 (1,2) and c2 (2,1) = 2 moves
@@ -144,7 +144,7 @@ mod tests {
 
     #[test]
     fn test_eagle_jumping_counts() {
-        let hfen = "12/12/12/12/12/12/12/12/12/12/K3E7/12 w - - 0 1";
+        let hfen = "11k/12/12/12/12/12/12/12/12/12/K3E7/12 w - - 0 1";
         let board = Board::from_hfen(hfen).unwrap();
         let eagle = SQ::make(4, 1); // e2
         let count = count_moves_from(&board, eagle);

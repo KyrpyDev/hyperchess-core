@@ -20,9 +20,11 @@
 //! type. Unpromoted positions look like classic FEN.
 
 use super::Board;
-use crate::core::piece_identity::{piece_from_identity, position_uses_identity};
+use crate::core::piece_identity::{
+    is_promotion_type_char, piece_from_identity, position_uses_identity,
+};
 use crate::core::sq::SQ;
-use crate::core::{Piece, Player};
+use crate::core::{Piece, PieceType, Player};
 
 /// Parse a HFEN string into board components.
 /// Returns identity-aware board data.
@@ -38,15 +40,33 @@ pub fn parse_hfen(hfen: &str) -> Result<HfenData, String> {
         "b" => Player::Black,
         _ => return Err(format!("Invalid turn: {}", parts[1])),
     };
+    // Castling and en-passant are validated here, not swallowed. A HFEN
+    // string is self-contained: if a field cannot be read it must be an
+    // error, because silently substituting a default ("no castling rights",
+    // "no en-passant target") produces a *different, legal-looking* position
+    // that the caller has no way to detect.
+    super::CastleRights::from_hfen_checked(parts[2])
+        .map_err(|e| format!("HFEN castling field: {e}"))?;
     let castling = parts[2].to_string();
+
+    parse_ep_square_checked(parts[3]).map_err(|e| format!("HFEN en-passant field: {e}"))?;
     let ep = parts[3].to_string();
+
     let rule50 = if parts.len() > 4 {
-        parts[4].parse::<u16>().unwrap_or(0)
+        parts[4]
+            .parse::<u16>()
+            .map_err(|_| format!("Invalid HFEN half-move clock: {:?}", parts[4]))?
     } else {
         0
     };
     let fullmove = if parts.len() > 5 {
-        parts[5].parse::<u16>().unwrap_or(1)
+        let n = parts[5]
+            .parse::<u16>()
+            .map_err(|_| format!("Invalid HFEN full-move number: {:?}", parts[5]))?;
+        if n == 0 {
+            return Err("HFEN full-move number starts at 1, got 0".to_string());
+        }
+        n
     } else {
         1
     };
@@ -98,6 +118,14 @@ pub fn parse_hfen(hfen: &str) -> Result<HfenData, String> {
                         let t = chars
                             .next()
                             .ok_or_else(|| format!("Dangling type override after {c}:"))?;
+                        if !is_promotion_type_char(t) {
+                            return Err(format!(
+                                "Invalid `id:Type` type letter {t:?} in {c}:{t} — the type half \
+                                 must be one of Q R B N E H (the promotion set), because \
+                                 promotion is the only way a piece's type can differ from its \
+                                 identity's starting type"
+                            ));
+                        }
                         let overridden = Piece::from_char(t)
                             .ok_or_else(|| format!("Invalid override piece character: {t}"))?;
                         if overridden.player_piece_lossy().0 != piece.player_piece_lossy().0 {
@@ -136,6 +164,36 @@ pub fn parse_hfen(hfen: &str) -> Result<HfenData, String> {
         rule50,
         fullmove,
     })
+}
+
+/// Verify that `pieces` holds exactly one king per side.
+///
+/// This is *position legality*, not syntax, which is why it lives here rather
+/// than inside [`parse_hfen`]: `parse_hfen` answers "is this a well-formed
+/// HFEN string", and is legitimately used on board fragments by the engine's
+/// own movegen tests, while [`Board::from_hfen`](super::Board::from_hfen)
+/// answers "is this a position a game can actually be in".
+///
+/// It is load-bearing for identity decoding, too: `G`/`g` are identity-only
+/// characters, so any position carrying both kings dispatches to identity
+/// mode correctly. King-less fragments are exactly the case where a position
+/// written with identity letters can be silently read as a legacy type-only
+/// one.
+pub fn validate_king_count(pieces: &[(SQ, Piece, char)]) -> Result<(), String> {
+    let mut kings = [0usize; 2];
+    for &(_, piece, _) in pieces {
+        let (player, pt) = piece.player_piece_lossy();
+        if pt == PieceType::K {
+            kings[player as usize] += 1;
+        }
+    }
+    if kings[0] != 1 || kings[1] != 1 {
+        return Err(format!(
+            "HFEN must have exactly one king per side, found {} white and {} black",
+            kings[0], kings[1]
+        ));
+    }
+    Ok(())
 }
 
 /// Parsed HFEN data.
@@ -263,7 +321,38 @@ pub fn to_hfen(board: &Board) -> String {
     hfen
 }
 
+/// Parse an en-passant square string, rejecting anything malformed.
+///
+/// Files are `a`-`l` and ranks `1`-`12`; `-` means no target. Returns
+/// [`crate::core::sq::NO_SQ`] only for an explicit `-`.
+pub fn parse_ep_square_checked(s: &str) -> Result<SQ, String> {
+    if s == "-" {
+        return Ok(super::super::core::sq::NO_SQ);
+    }
+    let mut chars = s.chars();
+    let file_char = chars
+        .next()
+        .ok_or_else(|| "empty en-passant field; use \"-\" for none".to_string())?;
+    let file = match file_char {
+        'a'..='l' => (file_char as u8) - b'a',
+        _ => return Err(format!("invalid file {file_char:?} (expected a-l)")),
+    };
+    let rank_str: String = chars.collect();
+    if rank_str.is_empty() {
+        return Err(format!("missing rank in en-passant square {s:?}"));
+    }
+    let rank = match rank_str.parse::<u8>() {
+        Ok(r) if (1..=12).contains(&r) => r - 1,
+        _ => return Err(format!("invalid rank {rank_str:?} (expected 1-12)")),
+    };
+    Ok(SQ::make(file, rank))
+}
+
 /// Parse an en passant square string (e.g., "e4", "-").
+///
+/// Lenient: returns `NO_SQ` for malformed input. Kept for callers that have
+/// already validated the field; new code should use
+/// [`parse_ep_square_checked`].
 pub fn parse_ep_square(s: &str) -> SQ {
     if s == "-" {
         return super::super::core::sq::NO_SQ;

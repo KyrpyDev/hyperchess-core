@@ -105,21 +105,51 @@ impl CastleRights {
     }
 
     /// Parse from HFEN string (e.g., "KQkq", "Kq", "-").
+    ///
+    /// Lenient: unknown characters are ignored. Prefer
+    /// [`CastleRights::from_hfen_checked`] on any input path that came from
+    /// outside the engine — silently reading `XYZ` as "no castling rights" is
+    /// how a typo becomes a game in which nobody may ever castle.
     pub fn from_hfen(s: &str) -> CastleRights {
+        Self::from_hfen_checked(s).unwrap_or_else(|_| {
+            let mut rights = 0u8;
+            for c in s.chars() {
+                match c {
+                    'K' => rights |= C_WHITE_K_MASK,
+                    'Q' => rights |= C_WHITE_Q_MASK,
+                    'k' => rights |= C_BLACK_K_MASK,
+                    'q' => rights |= C_BLACK_Q_MASK,
+                    _ => {}
+                }
+            }
+            CastleRights(rights)
+        })
+    }
+
+    /// Parse from a HFEN castling field, rejecting anything that is not `-`
+    /// or a duplicate-free subset of `KQkq`.
+    pub fn from_hfen_checked(s: &str) -> Result<CastleRights, String> {
         if s == "-" {
-            return CastleRights::NONE;
+            return Ok(CastleRights::NONE);
+        }
+        if s.is_empty() {
+            return Err("Empty castling field; use \"-\" for no rights".to_string());
         }
         let mut rights = 0u8;
         for c in s.chars() {
-            match c {
-                'K' => rights |= C_WHITE_K_MASK,
-                'Q' => rights |= C_WHITE_Q_MASK,
-                'k' => rights |= C_BLACK_K_MASK,
-                'q' => rights |= C_BLACK_Q_MASK,
-                _ => {}
+            let mask = match c {
+                'K' => C_WHITE_K_MASK,
+                'Q' => C_WHITE_Q_MASK,
+                'k' => C_BLACK_K_MASK,
+                'q' => C_BLACK_Q_MASK,
+                _ => return Err(format!("Invalid castling character {c:?} (expected K, Q, k, q or -)")),
+            };
+            if rights & mask != 0 {
+                return Err(format!("Duplicate castling character {c:?}"));
             }
+            rights |= mask;
         }
-        CastleRights(rights)
+        Ok(CastleRights(rights))
     }
 
     /// Convert to HFEN string.

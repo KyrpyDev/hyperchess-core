@@ -9,6 +9,7 @@ import { Color } from '../types/move';
 import { Move, PromotionPiece } from '../types/move';
 import { Piece, PieceType } from '../types/piece';
 import { algebraicToSquare, squareToAlgebraic } from '../utils/square-notation';
+import { parseHfenPosition } from '../board/hfen';
 
 /**
  * The subset of `WasmBoard`'s instance API these helpers need, expressed as
@@ -67,10 +68,39 @@ function parseEnPassant(enPassantStr: string): number {
  * in, so the snapshot always reflects what Rust actually parsed.
  */
 export function snapshotFromWasmBoard(wasmBoard: WasmBoardLike, history: Board['history'] = []): Board {
-  const pieces = Array.from(wasmBoard.encode()).map(decodePieceByte);
+  const hfen = wasmBoard.hfen();
+  const hfenParts = hfen.split(' ');
+  const [positionStr, toMoveStr, castlingStr, enPassantStr, halfmoveStr, fullmoveStr] = hfenParts;
 
-  const hfenParts = wasmBoard.hfen().split(' ');
-  const [, toMoveStr, castlingStr, enPassantStr, halfmoveStr, fullmoveStr] = hfenParts;
+  // Piece placement comes from `encode()` (one byte per square: colour +
+  // current type), which is authoritative for *what* each piece is but knows
+  // nothing about *which* piece it is. Identity is recovered from the
+  // engine's own HFEN-I position field and merged in, so the snapshot — and
+  // therefore everything `getBoardHfen` later re-serializes — keeps it.
+  //
+  // `encode()` stays the source of truth for type and colour; the parsed
+  // position only contributes the identity character. That way a disagreement
+  // between the two cannot change the position, and a legacy type-only HFEN
+  // simply contributes no identity at all.
+  const pieces = Array.from(wasmBoard.encode()).map(decodePieceByte);
+  let identities: (Piece | undefined)[] | undefined;
+  try {
+    identities = parseHfenPosition(positionStr);
+  } catch {
+    // A position field the engine emitted but this parser cannot read is not
+    // worth failing the snapshot over — the board is still correct, it just
+    // carries no identity. (The Rust side is the canonical parser.)
+    identities = undefined;
+  }
+  if (identities) {
+    for (let sq = 0; sq < pieces.length; sq++) {
+      const identity = identities[sq]?.identity;
+      const piece = pieces[sq];
+      if (piece && identity) {
+        pieces[sq] = { ...piece, identity };
+      }
+    }
+  }
 
   return {
     pieces,

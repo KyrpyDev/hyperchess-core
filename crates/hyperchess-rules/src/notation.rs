@@ -10,8 +10,16 @@
 //! HyperChess games. Standard chess FEN/PGN compatibility is intentionally
 //! **not** provided: HyperChess is a 12×12 variant with two extra piece
 //! types (Eagle, Hawk) and identity-tracked promotions, none of which have a
-//! faithful encoding in the classic formats. See
-//! `docs/FORMATS.md` at the workspace root for the full HFEN/HFEN-I/HSAN/HPGN-I reference.
+//! faithful encoding in the classic formats.
+//!
+//! **Self-contained law.** A notation string carries everything needed to
+//! reconstruct the position or resolve the move — no side table, no lookup,
+//! and no defaulting of a field that could not be read. In particular the
+//! identity prefix on an HPGN-I move is *verified* against the piece on the
+//! source square during replay, not merely carried.
+//!
+//! Reference: `docs/FORMATS.md` in this repository, and the normative
+//! `docs/baremetal-hyperchess-notations-v01.md` in the workspace.
 //!
 //! [`GameRecord`] is the class every crate under `src/` should use to
 //! import/export a game:
@@ -20,7 +28,7 @@
 //!   replaying `start_hfen` through `moves` (`to_hfeni`/`positions`).
 
 use crate::board::Board;
-use crate::core::piece_move::{strip_identity, HyperMove};
+use crate::core::piece_move::{split_identity, HyperMove};
 use std::fs;
 use std::io;
 
@@ -162,13 +170,34 @@ impl GameRecord {
         let mut out = Vec::with_capacity(self.moves.len() + 1);
         out.push(board.get_hfen());
         for (i, mv) in self.moves.iter().enumerate() {
-            let uci = strip_identity(mv);
+            let (claimed_identity, uci) = split_identity(mv);
             let legal = board.generate_moves();
             let found = legal
                 .iter()
                 .find(|m| m.stringify() == uci)
                 .copied()
                 .ok_or_else(|| format!("move {}: '{}' is not legal", i + 1, mv))?;
+
+            // The identity prefix is a claim about *which piece* moved, and it
+            // is checked, not trusted. Read it from the source square before
+            // the move is applied — afterwards the square is empty.
+            if let Some(claimed) = claimed_identity {
+                let actual = board.piece_identity_at(found.get_src());
+                if actual != Some(claimed) {
+                    return Err(format!(
+                        "move {}: '{}' claims identity '{}' on {}, but that square holds {}",
+                        i + 1,
+                        mv,
+                        claimed,
+                        found.get_src().notation(),
+                        match actual {
+                            Some(c) => format!("'{c}'"),
+                            None => "no tracked identity".to_string(),
+                        }
+                    ));
+                }
+            }
+
             board.apply_move(found);
             out.push(board.get_hfen());
         }
