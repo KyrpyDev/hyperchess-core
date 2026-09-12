@@ -201,7 +201,10 @@ mod tests {
             for m in board.generate_moves().iter() {
                 let hsan = hypermove_to_hsan(&board, *m);
                 if let Some(prev) = seen.insert(hsan.clone(), m.stringify()) {
-                    panic!("HSAN {hsan:?} is ambiguous in {hfen}: {prev} and {}", m.stringify());
+                    panic!(
+                        "HSAN {hsan:?} is ambiguous in {hfen}: {prev} and {}",
+                        m.stringify()
+                    );
                 }
             }
         }

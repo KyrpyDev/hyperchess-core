@@ -171,7 +171,9 @@ fn a_truthful_identity_prefix_replays() {
 fn a_lying_identity_prefix_is_rejected() {
     // Same legal move, wrong identity: `N` is the pawn from b3, not a3.
     let rec = record_with(&["N:a3a4"]);
-    let err = rec.final_hfen().expect_err("a wrong identity must not replay");
+    let err = rec
+        .final_hfen()
+        .expect_err("a wrong identity must not replay");
     assert!(err.contains("claims identity"), "unexpected error: {err}");
 }
 
@@ -195,7 +197,10 @@ fn hpgn_round_trip_preserves_the_identity_prefix() {
     let rec = record_with(&["M:a3a4", "m:a10a9"]);
     let text = rec.to_hpgni();
     let back = GameRecord::from_hpgni(&text).expect("round-trips");
-    assert_eq!(back.moves, vec!["M:a3a4".to_string(), "m:a10a9".to_string()]);
+    assert_eq!(
+        back.moves,
+        vec!["M:a3a4".to_string(), "m:a10a9".to_string()]
+    );
     assert_eq!(back.start_hfen, rec.start_hfen);
     assert!(back.final_hfen().is_ok());
 }

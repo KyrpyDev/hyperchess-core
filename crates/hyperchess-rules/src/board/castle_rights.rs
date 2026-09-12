@@ -142,7 +142,11 @@ impl CastleRights {
                 'Q' => C_WHITE_Q_MASK,
                 'k' => C_BLACK_K_MASK,
                 'q' => C_BLACK_Q_MASK,
-                _ => return Err(format!("Invalid castling character {c:?} (expected K, Q, k, q or -)")),
+                _ => {
+                    return Err(format!(
+                        "Invalid castling character {c:?} (expected K, Q, k, q or -)"
+                    ))
+                }
             };
             if rights & mask != 0 {
                 return Err(format!("Duplicate castling character {c:?}"));

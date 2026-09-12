@@ -212,9 +212,7 @@ pub fn parse_hsan(hsan: &str) -> Result<HsanMove, String> {
         disamb = head;
     }
     if !disamb.is_empty() {
-        return Err(format!(
-            "Unparsed text {disamb:?} in HSAN move {hsan:?}"
-        ));
+        return Err(format!("Unparsed text {disamb:?} in HSAN move {hsan:?}"));
     }
 
     Ok(HsanMove {
@@ -256,8 +254,9 @@ pub fn hsan_to_hypermove(board: &Board, hsan_move: &HsanMove) -> Result<HyperMov
 
     // The piece letter names a type; its absence names a pawn.
     let want_type = match hsan_move.piece {
-        Some(c) => PieceType::from_char(c)
-            .ok_or_else(|| format!("Invalid HSAN piece letter {c:?}"))?,
+        Some(c) => {
+            PieceType::from_char(c).ok_or_else(|| format!("Invalid HSAN piece letter {c:?}"))?
+        }
         None => PieceType::P,
     };
 
