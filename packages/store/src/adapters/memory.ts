@@ -4,8 +4,8 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { GameStore } from '../types/game-store';
-import { GameRecord, GameQueryOptions, GameNotFoundError } from '../types/game-record';
+import { GameStore } from '../types/game-store.js';
+import { GameRecord, GameQueryOptions, GameNotFoundError } from '../types/game-record.js';
 
 /**
  * In-memory game store for testing and development.

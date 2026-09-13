@@ -6,7 +6,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { Board as BoardType, Move, HfenString, createBoard, applyMove, generateLegalMoves } from 'hyperchess-core';
-import { SelectionState } from '../types/props';
+import { SelectionState } from '../types/props.js';
 
 /**
  * React hook owning the board position and the user's click-to-move selection.

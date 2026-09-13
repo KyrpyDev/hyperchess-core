@@ -4,8 +4,8 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { loadWasmBoard, snapshotFromWasmBoard } from '../wasm/engine';
+import { Board } from '../types/board.js';
+import { loadWasmBoard, snapshotFromWasmBoard } from '../wasm/engine.js';
 
 /**
  * Create a board from HFEN-I notation (or the default starting position if

@@ -18,7 +18,7 @@ import {
   isStalemate,
   undoMove,
   getBoardHfen,
-} from '../standalone';
+} from '../standalone.js';
 
 describe('hyperchess-core/standalone (bundler-free browser entry point)', () => {
   it('throws a clear error if used before initHyperchessCoreStandalone()', () => {

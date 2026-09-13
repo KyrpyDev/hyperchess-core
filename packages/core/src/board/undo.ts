@@ -4,7 +4,7 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
+import { Board } from '../types/board.js';
 
 /** Undo the last move */
 export function undoMove(board: Board): Board {

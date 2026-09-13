@@ -5,8 +5,8 @@
 // Copyright (c) 2026 HyperChess Developer Team
 
 import { describe, it, expect } from 'vitest';
-import { createBoard, getBoardHfen, applyMove, undoMove } from '../board/index';
-import { createGame } from '../game/index';
+import { createBoard, getBoardHfen, applyMove, undoMove } from '../board/index.js';
+import { createGame } from '../game/index.js';
 
 describe('hyperchess-core - Board', () => {
   it('creates a board from default position', () => {

@@ -13,7 +13,7 @@ import {
   applyMove,
   generateLegalMoves,
 } from 'hyperchess-core';
-import type { SelectionState } from '../types/props';
+import type { SelectionState } from '../types/props.js';
 
 /**
  * Vue 3 composable owning the board position and click-to-move selection.

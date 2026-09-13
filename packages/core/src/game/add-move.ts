@@ -4,12 +4,12 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Game, GameStatus } from '../types/game';
-import { Move } from '../types/move';
-import { generateLegalMoves, isCheckmate, isStalemate } from '../moves/index';
-import { applyMove } from '../board/move';
-import { parseHsanMove } from '../io/hsan-parser';
-import { SQUARE_TOKEN, algebraicToSquare, squareToAlgebraic } from '../utils/square-notation';
+import { Game, GameStatus } from '../types/game.js';
+import { Move } from '../types/move.js';
+import { generateLegalMoves, isCheckmate, isStalemate } from '../moves/index.js';
+import { applyMove } from '../board/move.js';
+import { parseHsanMove } from '../io/hsan-parser.js';
+import { SQUARE_TOKEN, algebraicToSquare, squareToAlgebraic } from '../utils/square-notation.js';
 
 /**
  * Add a move to the game (in algebraic or HSAN notation)

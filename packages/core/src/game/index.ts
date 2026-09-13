@@ -4,10 +4,10 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Game, GameStatus } from '../types/game';
-import { createBoard } from '../board/create';
-import { HfenString } from '../types/board';
-import { addMoveToGame } from './add-move';
+import { Game, GameStatus } from '../types/game.js';
+import { createBoard } from '../board/create.js';
+import { HfenString } from '../types/board.js';
+import { addMoveToGame } from './add-move.js';
 
 /**
  * Create a new game from optional starting HFEN

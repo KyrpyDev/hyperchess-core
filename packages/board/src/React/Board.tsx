@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Board as BoardType, Move, generateLegalMoves } from 'hyperchess-core';
-import { BoardProps, SelectionState } from '../types/props';
-import { useBoardState } from './useBoardState';
+import { BoardProps, SelectionState } from '../types/props.js';
+import { useBoardState } from './useBoardState.js';
 
 /**
  * React board component

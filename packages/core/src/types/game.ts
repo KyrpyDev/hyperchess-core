@@ -4,8 +4,8 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board, HfenString } from './board';
-import { Move, AlgebraicMove } from './move';
+import { Board, HfenString } from './board.js';
+import { Move, AlgebraicMove } from './move.js';
 
 /** Represents a complete game */
 export interface Game {

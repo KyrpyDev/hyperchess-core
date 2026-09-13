@@ -4,7 +4,7 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import type { Theme, BuiltInTheme } from './types/theme';
+import type { Theme, BuiltInTheme } from './types/theme.js';
 
 /**
  * Visual themes for the HyperChess board.

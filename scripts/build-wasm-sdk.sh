@@ -44,6 +44,27 @@ build_target() {
   # covered by the repo-wide dist/ rule) stays gitignored.
   rm -f "$out_dir/.gitignore"
   touch "$out_dir/.gitkeep"
+
+  # wasm-pack's `nodejs` target emits CommonJS — it calls require('fs') and
+  # resolves the .wasm file through __dirname. The parent package declares
+  # "type": "module", and wasm-pack's generated per-target package.json carries
+  # no "type" of its own, so Node inherited "module" and parsed that CommonJS
+  # file as ESM:
+  #
+  #   ReferenceError: __dirname is not defined in ES module scope
+  #
+  # Pinning the directory to commonjs makes Node parse it as what it actually
+  # is. The bundler and web targets are genuine ESM and must not be pinned.
+  if [ "$target" = "nodejs" ]; then
+    python3 - "$out_dir/package.json" <<'PYEOF'
+import json, sys, pathlib
+p = pathlib.Path(sys.argv[1])
+d = json.loads(p.read_text()) if p.exists() else {}
+d["type"] = "commonjs"
+p.write_text(json.dumps(d, indent=2) + "\n")
+print(f"[build-wasm-sdk] pinned {p} to type=commonjs")
+PYEOF
+  fi
 }
 
 build_target bundler

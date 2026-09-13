@@ -4,10 +4,10 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { Move } from '../types/move';
-import { getBoardHfen } from '../board/hfen';
-import { loadWasmBoard, uciToMove } from '../wasm/engine';
+import { Board } from '../types/board.js';
+import { Move } from '../types/move.js';
+import { getBoardHfen } from '../board/hfen.js';
+import { loadWasmBoard, uciToMove } from '../wasm/engine.js';
 
 /**
  * Generate all legal moves for the current position.

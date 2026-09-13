@@ -4,7 +4,7 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { GameRecord, GameQueryOptions, Unsubscribe } from './game-record';
+import { GameRecord, GameQueryOptions, Unsubscribe } from './game-record.js';
 
 /**
  * Universal game storage interface

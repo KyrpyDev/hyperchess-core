@@ -4,5 +4,5 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-export { parseHsanMove } from './hsan-parser';
-export { moveToHsan } from './hsan-exporter';
+export { parseHsanMove } from './hsan-parser.js';
+export { moveToHsan } from './hsan-exporter.js';

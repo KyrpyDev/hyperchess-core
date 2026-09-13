@@ -12,7 +12,7 @@ import {
   isCheckmate,
   isStalemate,
   applyMove,
-} from '../index';
+} from '../index.js';
 
 describe('hyperchess-core - Move Generation', () => {
   it('generates legal moves from starting position', () => {

@@ -1,6 +1,6 @@
 {
   "name": "hyperchess-board-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HyperChess 2D board component for all frameworks",
   "type": "module",
   "main": "./dist/index.js",
@@ -48,8 +48,19 @@
     "typescript": "^5.2.0",
     "vitest": "^0.34.0"
   },
-  "files": ["dist", "README.md"],
-  "keywords": ["hyperchess", "chess", "board", "component", "react", "vue", "web-component"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "hyperchess",
+    "chess",
+    "board",
+    "component",
+    "react",
+    "vue",
+    "web-component"
+  ],
   "author": "HyperChess Contributors",
   "license": "GPL-3.0-or-later",
   "repository": {

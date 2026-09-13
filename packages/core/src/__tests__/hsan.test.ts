@@ -5,11 +5,11 @@
 // Copyright (c) 2026 HyperChess Developer Team
 
 import { describe, it, expect } from 'vitest';
-import { Board } from '../types/board';
-import { parseHsanMove } from '../io/hsan-parser';
-import { moveToHsan } from '../io/hsan-exporter';
-import { generateLegalMoves } from '../moves/index';
-import { createBoard } from '../board/create';
+import { Board } from '../types/board.js';
+import { parseHsanMove } from '../io/hsan-parser.js';
+import { moveToHsan } from '../io/hsan-exporter.js';
+import { generateLegalMoves } from '../moves/index.js';
+import { createBoard } from '../board/create.js';
 
 function emptyBoard(toMove: 'white' | 'black' = 'white'): Board {
   return {

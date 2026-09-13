@@ -4,12 +4,12 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board, CastlingRights } from '../types/board';
-import { Color } from '../types/move';
-import { Move, PromotionPiece } from '../types/move';
-import { Piece, PieceType } from '../types/piece';
-import { algebraicToSquare, squareToAlgebraic } from '../utils/square-notation';
-import { parseHfenPosition } from '../board/hfen';
+import { Board, CastlingRights } from '../types/board.js';
+import { Color } from '../types/move.js';
+import { Move, PromotionPiece } from '../types/move.js';
+import { Piece, PieceType } from '../types/piece.js';
+import { algebraicToSquare, squareToAlgebraic } from '../utils/square-notation.js';
+import { parseHfenPosition } from '../board/hfen.js';
 
 /**
  * The subset of `WasmBoard`'s instance API these helpers need, expressed as

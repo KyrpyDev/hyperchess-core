@@ -1,6 +1,6 @@
 {
   "name": "hyperchess-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HyperChess board themes and styling",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,8 +19,17 @@
     "build": "tsc",
     "test": "vitest run"
   },
-  "files": ["dist", "README.md"],
-  "keywords": ["hyperchess", "chess", "theme", "styling", "css"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "hyperchess",
+    "chess",
+    "theme",
+    "styling",
+    "css"
+  ],
   "author": "HyperChess Contributors",
   "license": "GPL-3.0-or-later",
   "repository": {

@@ -4,8 +4,8 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Color } from './move';
-import { Piece } from './piece';
+import { Color } from './move.js';
+import { Piece } from './piece.js';
 
 /** Represents the state of a single board */
 export interface Board {

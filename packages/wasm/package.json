@@ -1,15 +1,16 @@
 {
   "name": "hyperchess-wasm",
-  "version": "0.1.0",
-  "description": "HyperChess game logic + 3D board rendering compiled to WebAssembly — a thin JS wrapper around crates/hyperchess-wasm (WasmBoard + Scene3D), not a separate implementation.",
+  "version": "0.1.1",
+  "description": "HyperChess game logic + 3D board rendering compiled to WebAssembly \u2014 a thin JS wrapper around crates/hyperchess-wasm (WasmBoard + Scene3D), not a separate implementation.",
   "type": "module",
   "main": "./dist/bundler/hyperchess_wasm.js",
   "types": "./dist/bundler/hyperchess_wasm.d.ts",
   "exports": {
     ".": {
       "node": {
-        "import": "./dist/nodejs/hyperchess_wasm.js",
-        "types": "./dist/nodejs/hyperchess_wasm.d.ts"
+        "types": "./dist/nodejs/hyperchess_wasm.d.ts",
+        "require": "./dist/nodejs/hyperchess_wasm.js",
+        "import": "./dist/nodejs/hyperchess_wasm.js"
       },
       "default": {
         "import": "./dist/bundler/hyperchess_wasm.js",
@@ -17,8 +18,9 @@
       }
     },
     "./nodejs": {
-      "import": "./dist/nodejs/hyperchess_wasm.js",
-      "types": "./dist/nodejs/hyperchess_wasm.d.ts"
+      "types": "./dist/nodejs/hyperchess_wasm.d.ts",
+      "require": "./dist/nodejs/hyperchess_wasm.js",
+      "import": "./dist/nodejs/hyperchess_wasm.js"
     },
     "./bundler": {
       "import": "./dist/bundler/hyperchess_wasm.js",
@@ -29,11 +31,22 @@
       "types": "./dist/web/hyperchess_wasm.d.ts"
     }
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "../../scripts/build-wasm-sdk.sh"
   },
-  "keywords": ["hyperchess", "chess", "wasm", "webassembly", "game", "engine", "webgpu"],
+  "keywords": [
+    "hyperchess",
+    "chess",
+    "wasm",
+    "webassembly",
+    "game",
+    "engine",
+    "webgpu"
+  ],
   "author": "HyperChess Contributors",
   "license": "GPL-3.0-or-later",
   "repository": {

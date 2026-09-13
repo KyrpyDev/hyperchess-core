@@ -4,9 +4,9 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { Move } from '../types/move';
-import { generateLegalMoves, isInCheck, isCheckmate } from '../moves/index';
+import { Board } from '../types/board.js';
+import { Move } from '../types/move.js';
+import { generateLegalMoves, isInCheck, isCheckmate } from '../moves/index.js';
 
 /**
  * Convert a move to HSAN (this SDK's algebraic notation — named distinctly

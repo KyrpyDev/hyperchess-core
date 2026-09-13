@@ -13,8 +13,8 @@ import {
   THEME_DARK,
   THEME_HIGHCONTRAST,
   THEME_PASTEL,
-} from '../index';
-import type { BuiltInTheme, Theme } from '../types/theme';
+} from '../index.js';
+import type { BuiltInTheme, Theme } from '../types/theme.js';
 
 const BUILT_IN_THEMES: Record<BuiltInTheme, Theme> = {
   classic: THEME_CLASSIC,

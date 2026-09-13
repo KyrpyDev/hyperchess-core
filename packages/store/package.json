@@ -1,6 +1,6 @@
 {
   "name": "hyperchess-store",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HyperChess game storage abstraction - works with any backend",
   "type": "module",
   "main": "./dist/index.js",
@@ -64,8 +64,19 @@
     "typescript": "^5.2.0",
     "vitest": "^0.34.0"
   },
-  "files": ["dist", "README.md"],
-  "keywords": ["hyperchess", "storage", "database", "postgres", "sqlite", "firebase", "supabase"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "hyperchess",
+    "storage",
+    "database",
+    "postgres",
+    "sqlite",
+    "firebase",
+    "supabase"
+  ],
   "author": "HyperChess Contributors",
   "license": "GPL-3.0-or-later",
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "hyperchess-core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "HyperChess core game logic - framework agnostic",
   "type": "module",
   "main": "./dist/index.js",
@@ -33,8 +33,19 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
-  "files": ["dist", "README.md"],
-  "keywords": ["hyperchess", "chess", "chess-variant", "board", "game", "logic", "engine"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "hyperchess",
+    "chess",
+    "chess-variant",
+    "board",
+    "game",
+    "logic",
+    "engine"
+  ],
   "author": "HyperChess Contributors",
   "license": "GPL-3.0-or-later",
   "repository": {

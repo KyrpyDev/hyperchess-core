@@ -4,10 +4,10 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { Move } from '../types/move';
-import { getBoardHfen } from './hfen';
-import { loadWasmBoard, snapshotFromWasmBoard, moveToUci } from '../wasm/engine';
+import { Board } from '../types/board.js';
+import { Move } from '../types/move.js';
+import { getBoardHfen } from './hfen.js';
+import { loadWasmBoard, snapshotFromWasmBoard, moveToUci } from '../wasm/engine.js';
 
 /**
  * Apply a move to the board, returning a new board state.

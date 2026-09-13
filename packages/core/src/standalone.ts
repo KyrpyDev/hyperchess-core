@@ -35,11 +35,11 @@
  * import from `../moves/index` too and would need the same forking to be
  * no-bundler-safe. Add them here the same way if that's ever needed.
  */
-import { Board } from './types/board';
-import { Move } from './types/move';
-import { getBoardHfen } from './board/hfen';
-import { undoMove } from './board/undo';
-import { snapshotFromWasmBoard, moveToUci, uciToMove, WasmBoardLike } from './wasm/snapshot';
+import { Board } from './types/board.js';
+import { Move } from './types/move.js';
+import { getBoardHfen } from './board/hfen.js';
+import { undoMove } from './board/undo.js';
+import { snapshotFromWasmBoard, moveToUci, uciToMove, WasmBoardLike } from './wasm/snapshot.js';
 
 export { getBoardHfen, undoMove };
 

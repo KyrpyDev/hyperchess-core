@@ -5,23 +5,23 @@
 // Copyright (c) 2026 HyperChess Developer Team
 
 // Types
-export { type Board, type CastlingRights, type BoardState, type HfenString } from './types/board';
-export { type Color, type Square, type Move, type AlgebraicMove, type HsanMove, type PromotionPiece } from './types/move';
-export { type Piece, type PieceType, type PiecePlacement, PIECE_SYMBOLS } from './types/piece';
-export { type Game, type GameMetadata, type GameStatus, type GameResult, type GameInfo } from './types/game';
+export { type Board, type CastlingRights, type BoardState, type HfenString } from './types/board.js';
+export { type Color, type Square, type Move, type AlgebraicMove, type HsanMove, type PromotionPiece } from './types/move.js';
+export { type Piece, type PieceType, type PiecePlacement, PIECE_SYMBOLS } from './types/piece.js';
+export { type Game, type GameMetadata, type GameStatus, type GameResult, type GameInfo } from './types/game.js';
 
 // Board operations
-export { createBoard } from './board/create';
-export { applyMove } from './board/move';
-export { isLegalMove } from './board/validate';
-export { undoMove } from './board/undo';
-export { getBoardHfen } from './board/hfen';
+export { createBoard } from './board/create.js';
+export { applyMove } from './board/move.js';
+export { isLegalMove } from './board/validate.js';
+export { undoMove } from './board/undo.js';
+export { getBoardHfen } from './board/hfen.js';
 
 // Move generation
-export { generateLegalMoves, isInCheck, isCheckmate, isStalemate } from './moves/index';
+export { generateLegalMoves, isInCheck, isCheckmate, isStalemate } from './moves/index.js';
 
 // Game state
-export { createGame, addMove, removeLastMove, getGameStatus } from './game/index';
+export { createGame, addMove, removeLastMove, getGameStatus } from './game/index.js';
 
 // I/O & notation
-export { parseHsanMove, moveToHsan } from './io/index';
+export { parseHsanMove, moveToHsan } from './io/index.js';

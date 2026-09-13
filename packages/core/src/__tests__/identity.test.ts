@@ -12,9 +12,9 @@
 // See docs/baremetal-hyperchess-notations-v01.md for the normative definition.
 
 import { describe, it, expect } from 'vitest';
-import { createBoard, getBoardHfen, applyMove } from '../board/index';
-import { parseHfenPosition, identityStartType, isIdentityChar } from '../board/hfen';
-import { generateLegalMoves } from '../moves/index';
+import { createBoard, getBoardHfen, applyMove } from '../board/index.js';
+import { parseHfenPosition, identityStartType, isIdentityChar } from '../board/hfen.js';
+import { generateLegalMoves } from '../moves/index.js';
 
 const CANONICAL_START =
   '12/abcdefghijkl/mnopqrstuvwx/12/12/12/12/12/12/MNOPQRSTUVWX/ABCDEFGHIJKL/12 w KQkq - 0 1';

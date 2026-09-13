@@ -4,9 +4,9 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { Move } from '../types/move';
-import { generateLegalMoves } from '../moves/index';
+import { Board } from '../types/board.js';
+import { Move } from '../types/move.js';
+import { generateLegalMoves } from '../moves/index.js';
 
 /**
  * Parse an HSAN move (this SDK's algebraic notation — named distinctly from

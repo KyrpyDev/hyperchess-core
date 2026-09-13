@@ -6,7 +6,7 @@
 
 import { describe, it, expect } from 'vitest';
 import { createBoard } from 'hyperchess-core';
-import { useBoardState } from '../useBoardState';
+import { useBoardState } from '../useBoardState.js';
 
 describe('hyperchess-board-ui - Vue useBoardState', () => {
   it('initializes with the default starting position when no hfen is given', () => {

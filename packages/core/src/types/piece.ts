@@ -4,7 +4,7 @@
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Color } from './move';
+import { Color } from './move.js';
 
 /** Piece type (side-agnostic) */
 export type PieceType = 'P' | 'N' | 'B' | 'R' | 'Q' | 'K' | 'E' | 'H';

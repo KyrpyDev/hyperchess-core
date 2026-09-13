@@ -5,8 +5,8 @@
 // Copyright (c) 2026 HyperChess Developer Team
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { GameStore, GameRecord, GameNotFoundError } from '../index';
-import { MemoryGameStore } from '../adapters/memory';
+import { GameStore, GameRecord, GameNotFoundError } from '../index.js';
+import { MemoryGameStore } from '../adapters/memory.js';
 
 /**
  * Abstract test suite for all GameStore implementations

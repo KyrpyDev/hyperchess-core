@@ -6,7 +6,7 @@
 
 import { WasmBoard } from 'hyperchess-wasm';
 
-export { snapshotFromWasmBoard, moveToUci, uciToMove } from './snapshot';
+export { snapshotFromWasmBoard, moveToUci, uciToMove } from './snapshot.js';
 
 /**
  * Loads a `WasmBoard` from the Rust engine — starting position if `hfen` is

@@ -13,7 +13,7 @@ import {
   generateLegalMoves,
   isInCheck,
   moveToHsan,
-} from '../index';
+} from '../index.js';
 
 describe('hyperchess-core - Game State Machine', () => {
   it('creates a new game with starting position', () => {

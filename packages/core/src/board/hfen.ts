@@ -4,9 +4,9 @@
 // Version: 2.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board } from '../types/board';
-import { Color } from '../types/move';
-import { Piece, PieceType } from '../types/piece';
+import { Board } from '../types/board.js';
+import { Color } from '../types/move.js';
+import { Piece, PieceType } from '../types/piece.js';
 
 /**
  * HFEN-I identity character → the piece type that identity *starts* as.
