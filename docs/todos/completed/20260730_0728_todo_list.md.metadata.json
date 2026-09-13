@@ -1,0 +1,6 @@
+{
+  "task_id": "20260730_0728",
+  "prompt": "git init hyperchess-live-stream and commit it too. Remove any token secret pr api key. Make this repo private not public. [follow-up] think how to fill the known gaps above (move_noise_basis_points, search_time_cap_ms) find a resolution and fill the gaps once you are confident test and deploy",
+  "status": "completed",
+  "created_at": "2026-07-30T04:28:43Z"
+}
