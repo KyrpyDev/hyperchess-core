@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/__tests__/hsan.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -30,7 +30,7 @@ function emptyBoard(toMove: 'white' | 'black' = 'white'): Board {
 
 const sq = (rank: number, file: number) => rank * 12 + file;
 
-describe('@hyperchess/core - HSAN round-trip', () => {
+describe('hyperchess-core - HSAN round-trip', () => {
   it('parses and exports a simple pawn move', () => {
     const board = createBoard();
     const move = parseHsanMove(board, 'e4');

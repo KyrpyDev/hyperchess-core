@@ -1,5 +1,5 @@
 {
-  "name": "@hyperchess/wasm",
+  "name": "hyperchess-wasm",
   "version": "0.1.0",
   "description": "HyperChess game logic + 3D board rendering compiled to WebAssembly — a thin JS wrapper around crates/hyperchess-wasm (WasmBoard + Scene3D), not a separate implementation.",
   "type": "module",

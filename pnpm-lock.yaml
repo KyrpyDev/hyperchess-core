@@ -53,10 +53,10 @@ importers:
 
   packages/board:
     dependencies:
-      '@hyperchess/core':
+      hyperchess-core:
         specifier: workspace:*
         version: link:../core
-      '@hyperchess/theme':
+      hyperchess-theme:
         specifier: workspace:*
         version: link:../theme
       react:
@@ -75,7 +75,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@hyperchess/wasm':
+      hyperchess-wasm:
         specifier: workspace:*
         version: link:../wasm
     devDependencies:
@@ -91,15 +91,15 @@ importers:
 
   packages/store:
     dependencies:
-      '@hyperchess/core':
-        specifier: workspace:*
-        version: link:../core
       '@supabase/supabase-js':
         specifier: ^2.0.0
         version: 2.110.7
       better-sqlite3:
         specifier: ^8.0.0 || ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0
         version: 8.7.0
+      hyperchess-core:
+        specifier: workspace:*
+        version: link:../core
       pg:
         specifier: ^8.0.0
         version: 8.22.0

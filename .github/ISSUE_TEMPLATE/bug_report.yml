@@ -19,9 +19,9 @@ body:
         - hyperchess-search (alpha-beta / MCTS / TimedSearcher)
         - hyperchess-eval (evaluation)
         - hyperchess-driver (CLI / UCI / REST)
-        - hyperchess-wasm / @hyperchess/wasm
-        - "@hyperchess/core (TypeScript logic)"
-        - "@hyperchess/board / store / theme"
+        - hyperchess-wasm / hyperchess-wasm
+        - "hyperchess-core (TypeScript logic)"
+        - "hyperchess-board-ui / store / theme"
         - Build / CI / packaging
         - Other
     validations:

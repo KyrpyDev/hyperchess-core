@@ -1,11 +1,11 @@
-# @hyperchess/theme
+# hyperchess-theme
 
 Board themes and styling for [HyperChess](https://github.com/KyrpyDev/hyperchess-core) —
 color palettes and piece styling for the 12×12 board, consumed by
-[`@hyperchess/board`](https://www.npmjs.com/package/@hyperchess/board) and usable standalone.
+[`hyperchess-board-ui`](https://www.npmjs.com/package/hyperchess-board-ui) and usable standalone.
 
 ```js
-import { THEME_CLASSIC, getTheme, applyTheme } from '@hyperchess/theme';
+import { THEME_CLASSIC, getTheme, applyTheme } from 'hyperchess-theme';
 
 // Five built-in themes: classic, modern, dark, highcontrast, pastel
 const theme = getTheme('dark');

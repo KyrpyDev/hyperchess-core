@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/theme
+// HyperChess Core — hyperchess-theme
 // File: packages/theme/src/index.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team

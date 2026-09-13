@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/wasm/snapshot.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -13,7 +13,7 @@ import { parseHfenPosition } from '../board/hfen';
 
 /**
  * The subset of `WasmBoard`'s instance API these helpers need, expressed as
- * a minimal structural interface rather than importing `@hyperchess/wasm`'s
+ * a minimal structural interface rather than importing `hyperchess-wasm`'s
  * own type. That keeps this module free of any dependency on a specific
  * wasm-pack target, so both `wasm/engine.ts` (the main, Node/bundler-backed
  * synchronous API) and `standalone.ts` (the no-bundler-browser async API)
@@ -61,7 +61,7 @@ function parseEnPassant(enPassantStr: string): number {
  *
  * `Board` stays a plain data object (not the opaque WASM handle) so existing
  * direct property access across the SDK (`board.pieces[i]`, `board.toMove`,
- * etc. — used throughout `@hyperchess/board`'s hooks and elsewhere) keeps
+ * etc. — used throughout `hyperchess-board-ui`'s hooks and elsewhere) keeps
  * working unchanged. The HFEN's own metadata fields (side to move, castling,
  * en passant, clocks) are re-derived from `wasmBoard.hfen()` — the engine's
  * own canonical output — rather than trusting whatever HFEN the caller passed

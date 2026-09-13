@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/__tests__/board.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -8,7 +8,7 @@ import { describe, it, expect } from 'vitest';
 import { createBoard, getBoardHfen, applyMove, undoMove } from '../board/index';
 import { createGame } from '../game/index';
 
-describe('@hyperchess/core - Board', () => {
+describe('hyperchess-core - Board', () => {
   it('creates a board from default position', () => {
     const board = createBoard();
     expect(board).toBeDefined();

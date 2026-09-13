@@ -53,4 +53,4 @@ the first tagged release.
 
 - Six Rust crates: rules (12×12 bitboards, movegen, HFEN/HSAN), no_std eval, search
   (anytime alpha-beta + MCTS), driver (CLI/UCI/REST), WASM bindings, optional CUDA.
-- Five npm packages: `@hyperchess/{core,wasm,board,store,theme}`.
+- Five npm packages: `hyperchess-{core,wasm,board,store,theme}`.

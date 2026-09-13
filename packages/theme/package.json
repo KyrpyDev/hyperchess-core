@@ -1,5 +1,5 @@
 {
-  "name": "@hyperchess/theme",
+  "name": "hyperchess-theme",
   "version": "0.1.0",
   "description": "HyperChess board themes and styling",
   "type": "module",

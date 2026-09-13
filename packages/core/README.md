@@ -1,17 +1,17 @@
-# @hyperchess/core
+# hyperchess-core
 
 Pure HyperChess game logic with zero dependencies. Works on all platforms.
 
 ## Installation
 
 ```bash
-npm install @hyperchess/core
+npm install hyperchess-core
 ```
 
 ## Quick Start
 
 ```typescript
-import { createBoard, getBoardHfen } from '@hyperchess/core';
+import { createBoard, getBoardHfen } from 'hyperchess-core';
 
 // Create a board from starting position
 const board = createBoard();
@@ -72,8 +72,8 @@ All exports are separate files, allowing bundlers to eliminate unused code:
 
 ```typescript
 // Only import what you need
-import { createBoard } from '@hyperchess/core/board';
-import { generateLegalMoves } from '@hyperchess/core/moves';
+import { createBoard } from 'hyperchess-core/board';
+import { generateLegalMoves } from 'hyperchess-core/moves';
 
 // Unused piece types are not bundled
 ```

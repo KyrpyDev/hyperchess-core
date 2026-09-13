@@ -1,5 +1,5 @@
 <template>
-  <div class="hyperchess-board" :class="`hyperchess-board-${theme}`">
+  <div class="hyperchess-board-ui" :class="`hyperchess-board-ui-${theme}`">
     <div
       class="board-grid"
       :style="{
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { Board as BoardType, Move, HfenString, createBoard, generateLegalMoves } from '@hyperchess/core';
+import { Board as BoardType, Move, HfenString, createBoard, generateLegalMoves } from 'hyperchess-core';
 import type { BoardProps, SelectionState } from '../types/props';
 import { useBoardState } from './useBoardState';
 
@@ -60,7 +60,7 @@ const handleMove = (move: Move) => {
 </script>
 
 <style scoped>
-.hyperchess-board {
+.hyperchess-board-ui {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
     sans-serif;
   user-select: none;

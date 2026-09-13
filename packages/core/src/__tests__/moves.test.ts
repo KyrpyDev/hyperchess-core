@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/__tests__/moves.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -14,7 +14,7 @@ import {
   applyMove,
 } from '../index';
 
-describe('@hyperchess/core - Move Generation', () => {
+describe('hyperchess-core - Move Generation', () => {
   it('generates legal moves from starting position', () => {
     const board = createBoard();
     const moves = generateLegalMoves(board);

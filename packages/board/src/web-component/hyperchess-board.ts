@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/board
-// File: packages/board/src/web-component/hyperchess-board.ts
+// HyperChess Core — hyperchess-board-ui
+// File: packages/board/src/web-component/hyperchess-board-ui.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
 /**
  * Framework-agnostic custom element wrapping a HyperChess board.
  *
- * Usage: `<hyperchess-board hfen="..." theme="modern"></hyperchess-board>`
+ * Usage: `<hyperchess-board-ui hfen="..." theme="modern"></hyperchess-board-ui>`
  *
  * Importing this module has a side effect: the element is registered as
- * `hyperchess-board` at the bottom of the file, guarded so a duplicate import
+ * `hyperchess-board-ui` at the bottom of the file, guarded so a duplicate import
  * cannot throw. Markup and styles live in an open shadow root, so page CSS does
  * not leak in and the element can be styled only through its `:host` and any
  * custom properties it inherits.
@@ -108,6 +108,6 @@ export class HyperchessBoard extends HTMLElement {
 }
 
 // Register the custom element
-if (!customElements.get('hyperchess-board')) {
-  customElements.define('hyperchess-board', HyperchessBoard);
+if (!customElements.get('hyperchess-board-ui')) {
+  customElements.define('hyperchess-board-ui', HyperchessBoard);
 }

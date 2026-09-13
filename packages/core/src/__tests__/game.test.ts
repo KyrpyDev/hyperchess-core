@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/__tests__/game.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -15,7 +15,7 @@ import {
   moveToHsan,
 } from '../index';
 
-describe('@hyperchess/core - Game State Machine', () => {
+describe('hyperchess-core - Game State Machine', () => {
   it('creates a new game with starting position', () => {
     const game = createGame();
 

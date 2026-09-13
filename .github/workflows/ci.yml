@@ -116,7 +116,7 @@ jobs:
               ;;
           esac
           bash scripts/ci-stub-rust-cuda-crates.sh
-      # `pnpm run build` compiles @hyperchess/wasm from the Rust crate via
+      # `pnpm run build` compiles hyperchess-wasm from the Rust crate via
       # wasm-pack, so the js job needs the Rust toolchain too.
       - uses: dtolnay/rust-toolchain@stable
         with:

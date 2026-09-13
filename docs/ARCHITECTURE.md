@@ -38,11 +38,11 @@ never numerically drift.
 
 ```mermaid
 graph LR
-    wasmpkg["@hyperchess/wasm<br/>(the engine, compiled)"]
-    core["@hyperchess/core<br/>(framework-agnostic game logic)"]
-    theme["@hyperchess/theme<br/>(visual theming)"]
-    board["@hyperchess/board<br/>(React/Vue/Web-Component UI)"]
-    store["@hyperchess/store<br/>(persistence adapters)"]
+    wasmpkg["hyperchess-wasm<br/>(the engine, compiled)"]
+    core["hyperchess-core<br/>(framework-agnostic game logic)"]
+    theme["hyperchess-theme<br/>(visual theming)"]
+    board["hyperchess-board-ui<br/>(React/Vue/Web-Component UI)"]
+    store["hyperchess-store<br/>(persistence adapters)"]
 
     core --> wasmpkg
     board --> core
@@ -53,7 +53,7 @@ graph LR
 All five packages are licensed `GPL-3.0-or-later` — see the
 [embedding note](../README.md#license) in the root README for the recommended out-of-process
 integration pattern (Web Worker + `postMessage`, or the REST driver over HTTP) for proprietary
-applications. `@hyperchess/store` depends only on `@hyperchess/core`, and talks to its actual
+applications. `hyperchess-store` depends only on `hyperchess-core`, and talks to its actual
 storage backend (Postgres, SQLite, Firebase, Supabase, or in-memory) through a small adapter
 interface rather than a hard dependency — see `packages/store/src/adapters/`.
 
@@ -91,7 +91,7 @@ rules `Rules` enforces.
 | --- | --- | --- |
 | **Default (CPU)** | `cargo build --workspace` | Pure-Rust search over `hyperchess-rules` + `hyperchess-search`; no GPU, no WASM |
 | **CUDA-accelerated** | `cargo build -p hyperchess-driver --features cuda` | Pulls in `hyperchess-search-cuda` against a local, unpublished `rust-cuda` checkout — source-only, `publish = false`, never ships to crates.io |
-| **WASM (browser)** | `pnpm --filter @hyperchess/wasm run build` (wraps `wasm-pack`) | Compiles `hyperchess-rules` + `hyperchess-search` with their `wasm` feature, exposes `WasmBoard` via `wasm-bindgen` |
+| **WASM (browser)** | `pnpm --filter hyperchess-wasm run build` (wraps `wasm-pack`) | Compiles `hyperchess-rules` + `hyperchess-search` with their `wasm` feature, exposes `WasmBoard` via `wasm-bindgen` |
 
 ## Interfaces at a glance
 
@@ -100,7 +100,7 @@ rules `Rules` enforces.
 | CLI (`hyperchess play`/`perft`/`show`/`gpu-info`/`bench-eval`) | `hyperchess-driver::cli` | Stateless per invocation |
 | Native UCI server (`hyperchess uci`) | `hyperchess-driver::uci` | One board per session, stdin/stdout |
 | REST/OpenAPI (`hyperchess api`) | `hyperchess-driver::api` | Fully stateless — no DB, no auth, no required env vars |
-| WASM (`WasmBoard`) | `hyperchess-wasm` | In-memory in the browser tab; persistence is the embedding app's job (e.g. via `@hyperchess/store`) |
+| WASM (`WasmBoard`) | `hyperchess-wasm` | In-memory in the browser tab; persistence is the embedding app's job (e.g. via `hyperchess-store`) |
 
 ## Where to look for what
 

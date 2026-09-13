@@ -1,7 +1,7 @@
-# @hyperchess/board
+# hyperchess-board-ui
 
 Framework-agnostic HyperChess 2D board component (React, Vue, and a plain web component),
-built on `@hyperchess/core` + `@hyperchess/theme`.
+built on `hyperchess-core` + `hyperchess-theme`.
 
 Relocated from `hyperchess_sdk/packages/board` — no source changes, only workspace wiring
 (gained its own `tsconfig.json`; the source repo never had one for this package, so its

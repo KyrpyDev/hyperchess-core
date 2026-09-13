@@ -1,15 +1,15 @@
-# @hyperchess/store
+# hyperchess-store
 
 Game persistence for [HyperChess](https://github.com/KyrpyDev/hyperchess-core) — one
 `GameStore` interface, five adapters. Save, load, list, and watch games without coupling your app
 to a backend.
 
 ```js
-import { MemoryGameStore } from '@hyperchess/store/memory';       // zero-config, great for tests
-import { SqliteGameStore } from '@hyperchess/store/sqlite';       // better-sqlite3
-import { PostgresGameStore } from '@hyperchess/store/postgres';   // pg
-import { FirebaseGameStore } from '@hyperchess/store/firebase';   // firebase
-import { SupabaseGameStore } from '@hyperchess/store/supabase';   // @supabase/supabase-js
+import { MemoryGameStore } from 'hyperchess-store/memory';       // zero-config, great for tests
+import { SqliteGameStore } from 'hyperchess-store/sqlite';       // better-sqlite3
+import { PostgresGameStore } from 'hyperchess-store/postgres';   // pg
+import { FirebaseGameStore } from 'hyperchess-store/firebase';   // firebase
+import { SupabaseGameStore } from 'hyperchess-store/supabase';   // @supabase/supabase-js
 ```
 
 Every backend driver is an **optional peer dependency** — install only what you use; the memory
@@ -18,7 +18,7 @@ adapter needs nothing.
 ## Quick start
 
 ```js
-import { MemoryGameStore } from '@hyperchess/store/memory';
+import { MemoryGameStore } from 'hyperchess-store/memory';
 
 const store = new MemoryGameStore();
 

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/wasm/engine.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { WasmBoard } from '@hyperchess/wasm';
+import { WasmBoard } from 'hyperchess-wasm';
 
 export { snapshotFromWasmBoard, moveToUci, uciToMove } from './snapshot';
 
@@ -14,7 +14,7 @@ export { snapshotFromWasmBoard, moveToUci, uciToMove } from './snapshot';
  * `undefined` if it's invalid; callers should check).
  *
  * Imports from the package root, not a specific wasm-pack target subpath:
- * `@hyperchess/wasm`'s package.json resolves this to the `nodejs` target
+ * `hyperchess-wasm`'s package.json resolves this to the `nodejs` target
  * under Node (loads synchronously via `fs`) and the `bundler` target
  * everywhere else (a real bundler's module graph resolution is already
  * async, so no explicit init call is needed here either — see

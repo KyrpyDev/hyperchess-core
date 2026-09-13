@@ -18,11 +18,11 @@ release notes unless you prefer otherwise.
 This engine is designed to accept **untrusted input** at these boundaries, and flaws there are
 in scope:
 
-- **HFEN / HSAN / UCI parsing** (`hyperchess-rules`, `@hyperchess/core`) — panics, out-of-bounds
+- **HFEN / HSAN / UCI parsing** (`hyperchess-rules`, `hyperchess-core`) — panics, out-of-bounds
   access, or resource exhaustion from crafted position/move strings.
 - **The REST driver** (`hyperchess-driver api`) — request handling, resource limits, and the
   statelessness guarantee (no cross-request contamination).
-- **The WASM boundary** (`hyperchess-wasm`, `@hyperchess/wasm`) — memory safety across the
+- **The WASM boundary** (`hyperchess-wasm`, `hyperchess-wasm`) — memory safety across the
   JS↔WASM interface.
 - **Search resource limits** — inputs that cause the search to ignore its time/node budget
   (denial of service against apps embedding the engine).

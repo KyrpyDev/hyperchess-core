@@ -1,5 +1,5 @@
 {
-  "name": "@hyperchess/board",
+  "name": "hyperchess-board-ui",
   "version": "0.1.0",
   "description": "HyperChess 2D board component for all frameworks",
   "type": "module",
@@ -41,8 +41,8 @@
     }
   },
   "dependencies": {
-    "@hyperchess/core": "workspace:*",
-    "@hyperchess/theme": "workspace:*"
+    "hyperchess-core": "workspace:*",
+    "hyperchess-theme": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.2.0",

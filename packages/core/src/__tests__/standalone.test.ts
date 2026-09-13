@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/__tests__/standalone.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -20,7 +20,7 @@ import {
   getBoardHfen,
 } from '../standalone';
 
-describe('@hyperchess/core/standalone (bundler-free browser entry point)', () => {
+describe('hyperchess-core/standalone (bundler-free browser entry point)', () => {
   it('throws a clear error if used before initHyperchessCoreStandalone()', () => {
     // NOTE: this only holds if nothing earlier in the suite has already
     // initialized the module-level WasmBoard reference — this test must run

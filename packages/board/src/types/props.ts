@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/board
+// HyperChess Core — hyperchess-board-ui
 // File: packages/board/src/types/props.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
-import { Board, HfenString } from '@hyperchess/core';
-import { Move } from '@hyperchess/core';
+import { Board, HfenString } from 'hyperchess-core';
+import { Move } from 'hyperchess-core';
 
 /**
- * Name of a theme to resolve from `@hyperchess/theme`.
+ * Name of a theme to resolve from `hyperchess-theme`.
  *
  * The known names are listed for editor autocompletion only — the trailing
  * `string` widens the union, so any registered custom theme name is accepted and

@@ -1,6 +1,6 @@
 name: Release (npm)
 
-# Manual, dry-run-first release pipeline for the @hyperchess/* packages.
+# Manual, dry-run-first release pipeline for the hyperchess-* packages.
 #
 # Policy (see docs/hyperchess-core-extraction-plan.md §7/§9b): before any real
 # public publish, the packages should also have passed the private-registry DX
@@ -9,7 +9,7 @@ name: Release (npm)
 # the real publish only runs when dry_run=false AND the NPM_TOKEN secret is
 # configured.
 #
-# @hyperchess/wasm ships the compiled Rust engine, so the wasm-pack build runs
+# hyperchess-wasm ships the compiled Rust engine, so the wasm-pack build runs
 # first — pnpm builds it via packages/wasm's build script.
 
 on:

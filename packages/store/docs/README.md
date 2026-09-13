@@ -1,4 +1,4 @@
-# @hyperchess/store
+# hyperchess-store
 
 Game storage abstraction with pluggable adapters (Postgres, SQLite, Firebase, Supabase,
 in-memory) — all backend deps are optional peers, none required to use the package.

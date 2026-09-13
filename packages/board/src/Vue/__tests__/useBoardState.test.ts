@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/board
+// HyperChess Core — hyperchess-board-ui
 // File: packages/board/src/Vue/__tests__/useBoardState.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
 import { describe, it, expect } from 'vitest';
-import { createBoard } from '@hyperchess/core';
+import { createBoard } from 'hyperchess-core';
 import { useBoardState } from '../useBoardState';
 
-describe('@hyperchess/board - Vue useBoardState', () => {
+describe('hyperchess-board-ui - Vue useBoardState', () => {
   it('initializes with the default starting position when no hfen is given', () => {
     // Regression: previously called `ref(lazyInitializerFn)(null)`, which
     // throws at runtime since a Vue Ref isn't callable — this composable

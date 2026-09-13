@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/core
+// HyperChess Core — hyperchess-core
 // File: packages/core/src/standalone.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -8,26 +8,26 @@
  * Bundler-free browser entry point — for a bare `<script type="module">`
  * import with no build step at all (no webpack/vite/esbuild/etc.).
  *
- * `@hyperchess/core`'s main entry point (`index.ts`) works with zero explicit
+ * `hyperchess-core`'s main entry point (`index.ts`) works with zero explicit
  * init in Node and in any real bundler (see docs/sdk-plan/WASM-MIGRATION-PLAN.md,
- * Phase 5) — but it statically imports `@hyperchess/wasm`, which resolves to
+ * Phase 5) — but it statically imports `hyperchess-wasm`, which resolves to
  * the `bundler` wasm-pack target outside Node. That target does a raw
  * `import ... from "./hyperchess_wasm_bg.wasm"`, which only a bundler can handle —
  * loading it directly in a browser fails outright ("Failed to fetch
  * dynamically imported module"), before any application code even runs.
  * So this module deliberately does NOT import `../board/create`,
  * `../moves/index`, etc. (all of which transitively import `wasm/engine.ts`
- * → `@hyperchess/wasm`) — it's a self-contained parallel implementation of
+ * → `hyperchess-wasm`) — it's a self-contained parallel implementation of
  * just the core primitives, backed by the `web` wasm-pack target instead,
  * which needs one explicit async init call and is otherwise inert at import
  * time (safe to statically import from anywhere, including a raw browser).
  *
  * Usage:
- *   import { initHyperchessCoreStandalone, createBoard } from '@hyperchess/core/standalone';
+ *   import { initHyperchessCoreStandalone, createBoard } from 'hyperchess-core/standalone';
  *   await initHyperchessCoreStandalone();
  *   const board = createBoard();
  *
- * Node and bundler-based apps should use the main `@hyperchess/core` entry
+ * Node and bundler-based apps should use the main `hyperchess-core` entry
  * point instead — nothing here is needed there.
  *
  * Scope: only the WASM-backed primitives (board creation/moves/legality),
@@ -69,9 +69,9 @@ let wasmBoardCtor: WasmBoardCtor | null = null;
  * a real browser.
  */
 export async function initHyperchessCoreStandalone(
-  wasmInput?: import('@hyperchess/wasm/web').InitInput
+  wasmInput?: import('hyperchess-wasm/web').InitInput
 ): Promise<void> {
-  const mod = await import('@hyperchess/wasm/web');
+  const mod = await import('hyperchess-wasm/web');
   await mod.default(wasmInput);
   wasmBoardCtor = mod.WasmBoard as unknown as WasmBoardCtor;
 }
@@ -81,7 +81,7 @@ function requireWasmBoardCtor(): WasmBoardCtor {
     throw new Error(
       'HyperChess WASM engine not initialized — call and await ' +
         'initHyperchessCoreStandalone() once before using any other function ' +
-        'from @hyperchess/core/standalone.'
+        'from hyperchess-core/standalone.'
     );
   }
   return wasmBoardCtor;

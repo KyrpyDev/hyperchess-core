@@ -1,38 +1,38 @@
 [
   {
-    "name": "@hyperchess/core",
+    "name": "hyperchess-core",
     "path": "packages/core/dist/index.js",
     "limit": "60 KB",
     "import": "{createBoard, generateLegalMoves, createGame, addMove}"
   },
   {
-    "name": "@hyperchess/core (gzipped)",
+    "name": "hyperchess-core (gzipped)",
     "path": "packages/core/dist/index.js",
     "limit": "20 KB",
     "gzip": true,
     "import": "{createBoard, generateLegalMoves, createGame, addMove}"
   },
   {
-    "name": "@hyperchess/board",
+    "name": "hyperchess-board-ui",
     "path": "packages/board/dist/index.js",
     "limit": "35 KB",
     "import": "{Board}"
   },
   {
-    "name": "@hyperchess/board (gzipped)",
+    "name": "hyperchess-board-ui (gzipped)",
     "path": "packages/board/dist/index.js",
     "limit": "12 KB",
     "gzip": true,
     "import": "{Board}"
   },
   {
-    "name": "@hyperchess/theme",
+    "name": "hyperchess-theme",
     "path": "packages/theme/dist/index.js",
     "limit": "20 KB",
     "import": "{getTheme, applyTheme}"
   },
   {
-    "name": "@hyperchess/theme (gzipped)",
+    "name": "hyperchess-theme (gzipped)",
     "path": "packages/theme/dist/index.js",
     "limit": "8 KB",
     "gzip": true,

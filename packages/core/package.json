@@ -1,5 +1,5 @@
 {
-  "name": "@hyperchess/core",
+  "name": "hyperchess-core",
   "version": "0.1.0",
   "description": "HyperChess core game logic - framework agnostic",
   "type": "module",
@@ -29,7 +29,7 @@
   },
   "scripts": {
     "build": "tsc && npm run build:standalone-bundle",
-    "build:standalone-bundle": "esbuild src/standalone.ts --bundle --format=esm --platform=browser --target=es2022 --external:@hyperchess/wasm/web --outfile=dist/standalone.js",
+    "build:standalone-bundle": "esbuild src/standalone.ts --bundle --format=esm --platform=browser --target=es2022 --external:hyperchess-wasm/web --outfile=dist/standalone.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -53,7 +53,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@hyperchess/wasm": "workspace:*"
+    "hyperchess-wasm": "workspace:*"
   },
   "devDependencies": {
     "esbuild": "^0.28.0",

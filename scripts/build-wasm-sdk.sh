@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # build-wasm-sdk.sh — compile crates/hyperchess-wasm to WebAssembly for the
-# @hyperchess/wasm SDK package (packages/wasm/).
+# hyperchess-wasm SDK package (packages/wasm/).
 #
 # Adapted from the source repo's scripts/build-wasm-sdk.sh, which built
 # src/hyperchess directly (there was no separate wasm crate there — see
@@ -11,7 +11,7 @@
 # via wasm-pack's --target flag is sufficient on its own.
 #
 # Targets:
-#   - bundler: for apps that import @hyperchess/wasm through webpack/vite/etc.
+#   - bundler: for apps that import hyperchess-wasm through webpack/vite/etc.
 #   - nodejs:  for server-side consumers (e.g. an HTMX backend)
 #   - web:     for consumers who want a plain <script type="module"> import
 #              with no bundler

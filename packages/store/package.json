@@ -1,5 +1,5 @@
 {
-  "name": "@hyperchess/store",
+  "name": "hyperchess-store",
   "version": "0.1.0",
   "description": "HyperChess game storage abstraction - works with any backend",
   "type": "module",
@@ -57,7 +57,7 @@
     }
   },
   "dependencies": {
-    "@hyperchess/core": "workspace:*"
+    "hyperchess-core": "workspace:*"
   },
   "devDependencies": {
     "firebase": "^12.0.0",

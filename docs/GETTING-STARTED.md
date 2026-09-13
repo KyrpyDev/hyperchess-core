@@ -11,7 +11,7 @@ guidelines.
   automatically the first time you build here.
 - **Node.js ≥ 18 and [pnpm](https://pnpm.io/)** (`corepack enable`) — only needed for the
   TypeScript/WASM SDK under `packages/`.
-- **`wasm-pack`** — only needed to build `@hyperchess/wasm` from source yourself.
+- **`wasm-pack`** — only needed to build `hyperchess-wasm` from source yourself.
 - **CUDA — optional and not required for anything else.** `hyperchess-search-cuda` depends on
   an unpublished local `rust-cuda` checkout and is excluded from the default workspace build.
 
@@ -58,7 +58,7 @@ not an engine-strength benchmark. See [CLI reference](CLI.md#perft-as-a-correctn
 | Store or exchange a position or a game | [Formats](FORMATS.md) |
 | Understand legality before writing a bot | [Laws](hyperchess-laws.md) |
 | Understand how the pieces fit together internally | [Architecture](ARCHITECTURE.md), [Search architecture](search-architecture.md) |
-| Use the engine from JavaScript/TypeScript | `npm install @hyperchess/core` — see the [root README's quick start](../README.md#quick-start-npm-30-seconds) |
+| Use the engine from JavaScript/TypeScript | `npm install hyperchess-core` — see the [root README's quick start](../README.md#quick-start-npm-30-seconds) |
 
 ## Next steps
 

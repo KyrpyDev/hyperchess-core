@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Board as BoardType, Move, generateLegalMoves } from '@hyperchess/core';
+import { Board as BoardType, Move, generateLegalMoves } from 'hyperchess-core';
 import { BoardProps, SelectionState } from '../types/props';
 import { useBoardState } from './useBoardState';
 
@@ -66,12 +66,12 @@ export const Board: React.FC<BoardProps> = ({
   );
 
   if (!board) {
-    return <div className={`hyperchess-board ${className || ''}`}>Loading...</div>;
+    return <div className={`hyperchess-board-ui ${className || ''}`}>Loading...</div>;
   }
 
   return (
     <div
-      className={`hyperchess-board hyperchess-board-${theme} ${className || ''}`}
+      className={`hyperchess-board-ui hyperchess-board-ui-${theme} ${className || ''}`}
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(12, 1fr)',

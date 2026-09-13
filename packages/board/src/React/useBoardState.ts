@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/board
+// HyperChess Core — hyperchess-board-ui
 // File: packages/board/src/React/useBoardState.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
 
 import { useState, useCallback, useMemo } from 'react';
-import { Board as BoardType, Move, HfenString, createBoard, applyMove, generateLegalMoves } from '@hyperchess/core';
+import { Board as BoardType, Move, HfenString, createBoard, applyMove, generateLegalMoves } from 'hyperchess-core';
 import { SelectionState } from '../types/props';
 
 /**

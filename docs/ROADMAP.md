@@ -29,7 +29,7 @@ license, a citable artifact, a live demo, and a low-friction way to contribute �
 
 ## Near-term
 
-- **A hosted, one-click playable web demo** built on `@hyperchess/wasm` + `@hyperchess/board` —
+- **A hosted, one-click playable web demo** built on `hyperchess-wasm` + `hyperchess-board-ui` —
   play a game in the browser in under a minute, no signup, no install.
 - **A reproducible, richly-documented dataset** — engine-vs-engine self-play games with a
   proper dataset card (generation method, engine profiles/depths, known biases). Dataset cards

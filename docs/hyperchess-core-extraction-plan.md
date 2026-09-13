@@ -1,6 +1,6 @@
 # HyperChess Core & Driver — Open-Source Extraction & Multiplatform Implementation Plan
 
-**Status:** Phases 0–7 complete. All six Rust crates and all five npm packages (`@hyperchess/{core,board,store,theme,wasm}`) exist, build, and are tested — `pnpm -r test` passes 70 tests using the real built `@hyperchess/wasm` (not a mock). Phase 7 surfaced and fixed two latent bugs in the source repo's own root `tsconfig.json` (a `paths` alias pointing at source instead of `dist/`, and an inherited `noEmit: true` that let `tsc` silently emit nothing while exiting 0) — neither had ever been hit before because `board`/`store`/`theme` never had their own `tsconfig.json` to inherit them through. Known open items: the Phase 6 `wgpu` bundle-size trade-off (Phase 8), and ~57 pre-existing eslint issues in copied source (not a CI gate, documented not fixed). Phase 8 (new `packages/board-3d`) is next.
+**Status:** Phases 0–7 complete. All six Rust crates and all five npm packages (`hyperchess-{core,board,store,theme,wasm}`) exist, build, and are tested — `pnpm -r test` passes 70 tests using the real built `hyperchess-wasm` (not a mock). Phase 7 surfaced and fixed two latent bugs in the source repo's own root `tsconfig.json` (a `paths` alias pointing at source instead of `dist/`, and an inherited `noEmit: true` that let `tsc` silently emit nothing while exiting 0) — neither had ever been hit before because `board`/`store`/`theme` never had their own `tsconfig.json` to inherit them through. Known open items: the Phase 6 `wgpu` bundle-size trade-off (Phase 8), and ~57 pre-existing eslint issues in copied source (not a CI gate, documented not fixed). Phase 8 (new `packages/board-3d`) is next.
 **Supersedes:** `docs/refactoring_proposal.md` (kept for history; this document fuses it with the
 current architecture, closes gaps it missed, and turns it into an executable plan). Also incorporates
 findings from `docs/.research/hyperchess-A-Strategic-Playbook-for-Open-Sourcing.md` — see §15.
@@ -31,7 +31,7 @@ everything is *copied* into the new repo, then the new repo lives independently.
 
 The original `refactoring_proposal.md` was written without inspecting the real crate boundaries. Re-indexing the codebase surfaced several things that change the plan materially:
 
-1. **A JS/TS SDK already exists and is already shaped like the target.** `src/hyperchess_sdk/` is a pnpm workspace with `@hyperchess/core`, `@hyperchess/board`, `@hyperchess/store`, `@hyperchess/theme`, and `@hyperchess/wasm` packages. `@hyperchess/core` is **already MIT-licensed**, already has clean `exports` (`./board`, `./moves`, `./game`, `./standalone`), and already depends on `@hyperchess/wasm` as a workspace package. This is not something to build — it's something to **relocate and keep polishing**.
+1. **A JS/TS SDK already exists and is already shaped like the target.** `src/hyperchess_sdk/` is a pnpm workspace with `hyperchess-core`, `hyperchess-board-ui`, `hyperchess-store`, `hyperchess-theme`, and `hyperchess-wasm` packages. `hyperchess-core` is **already MIT-licensed**, already has clean `exports` (`./board`, `./moves`, `./game`, `./standalone`), and already depends on `hyperchess-wasm` as a workspace package. This is not something to build — it's something to **relocate and keep polishing**.
 2. **WASM export already exists.** `src/hyperchess/src/wasm.rs`, and the crate already has a `wasm` cargo feature that turns off `rayon`/`num_cpus` for WASM builds (`src/hyperchess/src/lib.rs`). The rules engine was built WASM-aware from the start.
 3. **A 3D renderer already exists and is already web-targeted.** `src/hyperchess_3d` compiles to WASM via `wasm-bindgen` and targets **WebGPU + WebGL** through `wgpu` (not a native-only prototype). This directly satisfies the "3D board/pieces" UI ask — it needs a packaging pass, not a rewrite.
 4. **Search code lives in the rules crate, not the engine crate.** `src/hyperchess/src/bots/` has `alphabeta.rs`, `guided_alphabeta.rs`, `iterative.rs`, `mcts.rs`, `pro.rs`, `timed.rs` — all CPU search. `src/hyperchess_engine` is actually the **UCI protocol + CUDA/GPU layer** (`uci*.rs`, `cuda_backend.rs`, `cuda_mcts.rs`, `gpu_alphabeta.rs`, `kernels/`), described in its own `Cargo.toml` as "Shared HyperChess engine — UCI client/server, CPU MCTS, optional CUDA backend" with `cuda` as an **optional, non-default feature**. This confirms the original proposal's "leaky separation" finding, but the fix is more surgical than a full rewrite: split `hyperchess_engine` along its existing feature boundary.
@@ -69,7 +69,7 @@ graph TD
     end
 
     subgraph clients["Public-facing artifacts"]
-        pkgs["@hyperchess/* npm packages\n(from hyperchess_sdk)"]
+        pkgs["hyperchess-* npm packages\n(from hyperchess_sdk)"]
         app["hyperchess-playground\nTauri v2 + React — NEW (§10a)"]
         deploy["Docker + OpenShift manifests"]
     end
@@ -98,7 +98,7 @@ graph TD
 | `crates/hyperchess-wasm` | `src/hyperchess/src/wasm.rs` + `src/hyperchess_3d/` | **Move + merge.** Two existing WASM surfaces combined into one wasm-pack target. |
 | `crates/hyperchess-driver` (`cli`, `uci` modules) | `src/hyperchess_cli/`, `src/hyperchess_engine/src/{uci,uci_server,uci_server_bin,uci_server_util,pool,calibration}.rs` | **Move + reassemble** as subcommands of one binary. |
 | `crates/hyperchess-driver` (`api` module) | — | **New.** Stateless REST/OpenAPI layer; nothing like it exists today. |
-| `packages/*` | `src/hyperchess_sdk/packages/*` | **Copy + repoint** `@hyperchess/wasm` at the new crate's build output. Add `packages/board-3d` wrapping `hyperchess-wasm`'s renderer (adapt, don't rewrite). |
+| `packages/*` | `src/hyperchess_sdk/packages/*` | **Copy + repoint** `hyperchess-wasm` at the new crate's build output. Add `packages/board-3d` wrapping `hyperchess-wasm`'s renderer (adapt, don't rewrite). |
 | `apps/hyperchess-playground` | — | **New.** Tauri v2 + React developer test/demo app — see §10a. |
 | `deploy/docker`, `deploy/openshift` | `src/hyperchess-os-trainer/manifests/` (pattern only) | **New Dockerfile; adapted manifests** (strip PVC/Secret/DB-init Job — driver is stateless). |
 | `.github/workflows/*` | — | **New.** |
@@ -171,11 +171,11 @@ hyrperchess-core/
 │       └── src/{cli,uci,api}/
 ├── packages/                        # same convention: src/ + docs/ per package (npm's own
 │   ├── core/                        # idiomatic layout already puts code under src/)
-│   ├── board/                       # @hyperchess/board (2D)
-│   ├── board-3d/                    # @hyperchess/board-3d (WebGPU/WebGL, from hyperchess_3d)
-│   ├── store/                       # @hyperchess/store
-│   ├── theme/                       # @hyperchess/theme
-│   └── wasm/                        # @hyperchess/wasm
+│   ├── board/                       # hyperchess-board-ui (2D)
+│   ├── board-3d/                    # hyperchess-board-ui-3d (WebGPU/WebGL, from hyperchess_3d)
+│   ├── store/                       # hyperchess-store
+│   ├── theme/                       # hyperchess-theme
+│   └── wasm/                        # hyperchess-wasm
 ├── apps/
 │   └── hyperchess-playground/       # Tauri v2 + React — developer test/demo app, THIS plan's app scope (§10a)
 │       # (a future full-featured `hyperchess-app` and a recreated training/ops app
@@ -200,7 +200,7 @@ GPLv3 is the right default for a chess engine core (Stockfish/Fairy-Stockfish pr
 
 - **Statically linking** `hyperchess-rules`/`hyperchess-search` into a closed-source Rust binary, or **bundling** the WASM package directly into a website's own JS bundle, makes that binary/bundle a GPL derivative — the integrator would need to release their source.
 - **Consuming the API driver over the network** (REST calls to your OpenShift-deployed service, or their own deployed container) does **not** trigger this — it's a separate process, GPL doesn't reach across a network boundary.
-- **Running the WASM package in a Web Worker communicating via `postMessage`** (the same arms-length pattern Stockfish.js/Stockfish.wasm has always used to stay GPL-compatible in commercial web products) is the standard mitigation and should be the **documented, default integration pattern** for `@hyperchess/wasm` — not a function call linked into the host bundle.
+- **Running the WASM package in a Web Worker communicating via `postMessage`** (the same arms-length pattern Stockfish.js/Stockfish.wasm has always used to stay GPL-compatible in commercial web products) is the standard mitigation and should be the **documented, default integration pattern** for `hyperchess-wasm` — not a function call linked into the host bundle.
 
 **Action:** `packages/wasm`'s README and the API driver's docs should lead with "Worker + postMessage" and "network API call" as the two zero-friction integration paths, and flag direct static linking as GPL-triggering. This isn't a blocker, just something the docs need to be explicit about so nobody gets a surprise later.
 
@@ -280,7 +280,7 @@ Adapts `src/hyperchess-os-trainer/manifests/` directly rather than designing fro
 
 Mostly a relocation exercise, not new development:
 
-- `packages/core`, `packages/board`, `packages/store`, `packages/theme` → copied from `hyperchess_sdk/packages/*` essentially unchanged; only the `@hyperchess/wasm` dependency's build source moves (now built from `crates/hyperchess-wasm` instead of `src/hyperchess`).
+- `packages/core`, `packages/board`, `packages/store`, `packages/theme` → copied from `hyperchess_sdk/packages/*` essentially unchanged; only the `hyperchess-wasm` dependency's build source moves (now built from `crates/hyperchess-wasm` instead of `src/hyperchess`).
 - `packages/board-3d` → new package wrapping `hyperchess_3d`'s existing WebGPU/WebGL wgpu renderer via its existing `wasm-bindgen` bindings. This is packaging work (expose a clean TS API, write the README, wire into the pnpm workspace), not a rendering rewrite.
 - `docs/assets/models/` → classic piece set (source an existing CC0/open license `.gltf` set — don't create from scratch) plus custom Eagle/Hawk models (the one genuinely new asset-creation task in this whole plan, since no such 3D model exists in the current repo — flagged as a task for you/a contributor, not something to auto-generate).
 
@@ -313,7 +313,7 @@ that gap before anything reaches the real npm registry:
 1. `npm publish --registry=https://npm.kyrpy.kyrpy.com/` (or a per-project `.npmrc` pinning that
    registry, per the skill) for every `packages/*` after each build.
 2. In a throwaway scratch project **outside** the `hyrperchess-core` pnpm workspace (no
-   `workspace:*` resolution possible), `npm install @hyperchess/core --registry=https://npm.kyrpy.kyrpy.com/`
+   `workspace:*` resolution possible), `npm install hyperchess-core --registry=https://npm.kyrpy.kyrpy.com/`
    and build a trivial consumer against the **installed**, not linked, package.
 3. Do the same for `apps/hyperchess-playground` itself once it's real: build it once against the
    local workspace (fast inner loop) and, as a release gate, once against packages installed from
@@ -338,9 +338,9 @@ without writing code first — this is the concrete deliverable behind "implemen
 app for developers to use and test the engine."
 
 - One React codebase, Tauri v2 targets: desktop (Windows/macOS/Linux) + mobile (iOS/Android — Tauri v2's mobile support) + a plain static website build (§10c) — three outputs, one codebase.
-- Built **entirely on `packages/*`** — no direct access to any Rust crate outside what's exposed through `@hyperchess/wasm`/`@hyperchess/board`/`@hyperchess/board-3d`. This keeps the app honest as a "reference integration": if the app can only build itself from public packages, so can anyone else.
+- Built **entirely on `packages/*`** — no direct access to any Rust crate outside what's exposed through `hyperchess-wasm`/`hyperchess-board-ui`/`hyperchess-board-ui-3d`. This keeps the app honest as a "reference integration": if the app can only build itself from public packages, so can anyone else.
 - **Screens/features (developer-tool framing, not end-user polish):**
-  - 2D + 3D board toggle (`@hyperchess/board`, `@hyperchess/board-3d`), full legal-move highlighting via the WASM rules engine, fully offline.
+  - 2D + 3D board toggle (`hyperchess-board-ui`, `hyperchess-board-ui-3d`), full legal-move highlighting via the WASM rules engine, fully offline.
   - Engine control panel: pick search algorithm (alpha-beta / iterative / MCTS), depth, skill token, CPU vs. "call the deployed API driver" toggle — exposes exactly the API driver's parameters from §6 so developers see the request/response shape live.
   - FEN/PGN import-export box and a raw request/response console (shows the literal JSON sent to the API driver) — this doubles as living documentation of the integration contract.
   - No accounts, no DB, no persistence beyond local storage. Nothing here duplicates `hyperchess_web`.
@@ -358,7 +358,7 @@ Because 10a is built entirely on `packages/*` rather than Tauri's `invoke()` bri
 frontend bundle also runs as a plain static website (any static host/CDN) with zero extra code —
 `invoke()`/`window.__TAURI__` only exists inside a Tauri webview, so the one thing that needs an
 abstraction is a small bridge interface: one implementation calls Tauri when
-`window.__TAURI_INTERNALS__` is present, the other calls `@hyperchess/wasm` (in a Web Worker,
+`window.__TAURI_INTERNALS__` is present, the other calls `hyperchess-wasm` (in a Web Worker,
 consistent with §5's GPL boundary guidance) + `fetch()` against the API driver when it isn't. Same UI
 code either way. This is also literally the "web playground" component from the original
 `refactoring_proposal.md` and the Hugging-Face-Space-style "playable demo" the research playbook
@@ -368,7 +368,7 @@ code either way. This is also literally the "web playground" component from the 
 
 ## 11. Community Bootstrap
 
-- `README.md` leads with a 30-second "npm install @hyperchess/board, drop in an iframe-free component, done" example and a "run the Docker image, hit `/docs`" example — the two zero-config paths from §6.
+- `README.md` leads with a 30-second "npm install hyperchess-board-ui, drop in an iframe-free component, done" example and a "run the Docker image, hit `/docs`" example — the two zero-config paths from §6.
 - `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, issue templates (`bug_report.yml`, `feature_request.yml`), PR template.
 - GitHub Discussions enabled from day one (Q&A + Show-and-tell categories) — cheaper to bootstrap early than to add once people are already filing issues instead.
 - A handful of `good-first-issue`-labeled tasks seeded at launch (the piece-model asset gap from §9 is a natural one).
@@ -389,7 +389,7 @@ Each phase should land as its own PR/commit in the new repo so history stays rev
 | 4 | Split `hyperchess_engine` | ✅ **Done.** Also absorbed `hyperchess_cli`'s extraction (the phase table had never explicitly scoped it despite §2's component table already bundling cli+uci as one driver crate — completed rather than left as a gap). `hyperchess-search-cuda`: cuda_backend/cuda_mcts/gpu_alphabeta + kernels/, `publish = false`, default (no-cuda) build verified; full `--features cuda` build not attempted (local rust-cuda + GPU exist in this sandbox, but a from-scratch `rustc_codegen_nvvm` build is a large environment-specific undertaking already treated as best-effort per §5 — flagged, not silently skipped). `hyperchess-driver`: ONE `hyperchess` binary with subcommands (resolves §13's open item), real behavior fix (hardcoded absolute `DEFAULT_OUT_DIR` → relative `./games`), 6 more pre-existing clippy lints fixed. Verified with actual end-to-end runs, not just green checks: `perft 2` returns the known golden value 3844, `uci` completes a real handshake, `play` writes all 4 export formats correctly. 33 new tests pass. | Medium (§5 blocker documented, not solved) |
 | 5 | Build `hyperchess-driver::api` | ✅ **Done.** axum + utoipa service, exactly the §6 v1 routes live (`/health`, `/board/fen-validate`, `/move/legal`, `/move/best`, `/docs`, `/openapi.json`), stateless, `ENGINE_DEFAULT_DEPTH`/`ENGINE_THREADS` env defaults. Caught a real router-construction panic (duplicate `/openapi.json` registration) via an actual live-server curl smoke test — `cargo build`/`test` never construct the router at runtime, so never would have caught it. 9 new `tower::oneshot`-based integration tests added (CI-automatable, unlike the curl smoke test), one cross-checking `/move/legal`'s start-position count against hyperchess-search's own golden perft(1) value from Phase 3. | Medium-High (new code) |
 | 6 | Extract `hyperchess-wasm` | ✅ **Done.** Merged `wasm.rs` (→ `board.rs`) + `hyperchess_3d` into one wasm-pack target — genuinely new consolidation, not a copy (the source repo deliberately keeps these separate, confirmed by reading its own WASM-MIGRATION-PLAN.md before extracting). Merged the two crates' separate `#[wasm_bindgen(start)]` inits into one (wasm-bindgen allows only one per crate). Caught two real bugs: an incomplete first reconstruction of `Scene3D::set_selection`/`pick()` found via a full method-signature diff against the original, and `gen_assets`' hardcoded output path silently writing outside the crate (broke the workspace `crates/*` glob) found by actually running the binary. Verified via real `wasm-pack build --target nodejs` + a Node.js smoke test against the compiled `.wasm` — `legal_moves` count (62) and `best_move(depth=3)` ("g3g5") both match the native engine's output exactly. Open item: `wgpu` bundled into every build now costs 2D-only consumers ~4.5MB — flagged for Phase 8. | Medium (two WASM surfaces → one) |
-| 7 | Relocate `packages/*` | ✅ **Done.** Copied `hyperchess_sdk/packages/{core,board,store,theme}` verbatim (zero source changes — `@hyperchess/core` imports `@hyperchess/wasm` by name, not path); relocated `hyperchess_sdk/wasm/` to `packages/wasm/` (child of `packages/`, not sibling — matches this plan's layout) with a rewritten build script for the new crate. Found and fixed 2 latent bugs in the source's root `tsconfig.json` (`paths` aliasing to source, inherited `noEmit: true` silently producing zero output) — never hit before since `board`/`store`/`theme` had no `tsconfig.json` of their own until this phase gave them one. `pnpm -r test` green (70 tests, real `@hyperchess/wasm` build) and `pnpm -r build` produces real inspected `dist/` output for every package. | Low |
+| 7 | Relocate `packages/*` | ✅ **Done.** Copied `hyperchess_sdk/packages/{core,board,store,theme}` verbatim (zero source changes — `hyperchess-core` imports `hyperchess-wasm` by name, not path); relocated `hyperchess_sdk/wasm/` to `packages/wasm/` (child of `packages/`, not sibling — matches this plan's layout) with a rewritten build script for the new crate. Found and fixed 2 latent bugs in the source's root `tsconfig.json` (`paths` aliasing to source, inherited `noEmit: true` silently producing zero output) — never hit before since `board`/`store`/`theme` had no `tsconfig.json` of their own until this phase gave them one. `pnpm -r test` green (70 tests, real `hyperchess-wasm` build) and `pnpm -r build` produces real inspected `dist/` output for every package. | Low |
 | 8 | New `packages/board-3d` | Wrap `hyperchess-wasm`'s renderer with a clean TS API | Medium |
 | 9 | Docker + OpenShift | `Dockerfile.driver`, trimmed manifests from §8, deploy to a test namespace | Medium (real cluster) |
 | 10 | CI/CD | All five workflows from §7, first `0.1.0` publish dry-run (`--dry-run` on crates.io/npm), private-registry npm dry-run per §9b | Medium |

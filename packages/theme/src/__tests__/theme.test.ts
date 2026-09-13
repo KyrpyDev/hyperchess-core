@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/theme
+// HyperChess Core — hyperchess-theme
 // File: packages/theme/src/__tests__/theme.test.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -37,7 +37,7 @@ function fakeElement() {
   };
 }
 
-describe('@hyperchess/theme', () => {
+describe('hyperchess-theme', () => {
   it('getTheme returns the matching built-in theme by name', () => {
     for (const name of Object.keys(BUILT_IN_THEMES) as BuiltInTheme[]) {
       expect(getTheme(name)).toBe(BUILT_IN_THEMES[name]);

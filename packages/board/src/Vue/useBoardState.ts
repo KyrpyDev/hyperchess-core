@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/board
+// HyperChess Core — hyperchess-board-ui
 // File: packages/board/src/Vue/useBoardState.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
@@ -12,7 +12,7 @@ import {
   createBoard,
   applyMove,
   generateLegalMoves,
-} from '@hyperchess/core';
+} from 'hyperchess-core';
 import type { SelectionState } from '../types/props';
 
 /**

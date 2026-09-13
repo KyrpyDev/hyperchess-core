@@ -15,11 +15,11 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@hyperchess/core": ["packages/core/src"],
-      "@hyperchess/board": ["packages/board/src"],
-      "@hyperchess/board-3d": ["packages/board-3d/src"],
-      "@hyperchess/theme": ["packages/theme/src"],
-      "@hyperchess/store": ["packages/store/src"]
+      "hyperchess-core": ["packages/core/src"],
+      "hyperchess-board-ui": ["packages/board/src"],
+      "hyperchess-board-ui-3d": ["packages/board-3d/src"],
+      "hyperchess-theme": ["packages/theme/src"],
+      "hyperchess-store": ["packages/store/src"]
     },
     "resolveJsonModule": true,
     "isolatedModules": true,

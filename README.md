@@ -32,11 +32,11 @@ does — browsers, Node.js, serverless, and native.
 ## Quick start (npm, 30 seconds)
 
 ```bash
-npm install @hyperchess/core
+npm install hyperchess-core
 ```
 
 ```js
-import { createGame, generateLegalMoves, addMove } from '@hyperchess/core';
+import { createGame, generateLegalMoves, addMove } from 'hyperchess-core';
 
 const game = createGame();                            // standard 12×12 start
 console.log(generateLegalMoves(game.board).length);   // every legal opening move
@@ -47,7 +47,7 @@ Want the full Rust engine (search included) in the browser? Add the WASM package
 Web Worker:
 
 ```js
-import init, { WasmBoard } from '@hyperchess/wasm/web';
+import init, { WasmBoard } from 'hyperchess-wasm/web';
 
 await init();
 const board = new WasmBoard();
@@ -123,11 +123,11 @@ Every technique, every safety invariant, and the reasoning behind them is docume
 | `crates/hyperchess-driver` | The `hyperchess` binary: CLI games, UCI server, REST/OpenAPI service |
 | `crates/hyperchess-wasm` | wasm-bindgen bindings (`WasmBoard`) + WebGPU/WebGL 3D renderer |
 | `crates/hyperchess-search-cuda` | Optional CUDA acceleration (never published; needs local rust-cuda) |
-| `packages/core` | `@hyperchess/core` — framework-agnostic TypeScript game logic |
-| `packages/wasm` | `@hyperchess/wasm` — the Rust engine compiled to WebAssembly |
-| `packages/board` | `@hyperchess/board` — 2D board UI for React, Vue, and Web Components |
-| `packages/store` | `@hyperchess/store` — game persistence (Postgres/SQLite/Firebase/Supabase/memory) |
-| `packages/theme` | `@hyperchess/theme` — board themes and styling |
+| `packages/core` | `hyperchess-core` — framework-agnostic TypeScript game logic |
+| `packages/wasm` | `hyperchess-wasm` — the Rust engine compiled to WebAssembly |
+| `packages/board` | `hyperchess-board-ui` — 2D board UI for React, Vue, and Web Components |
+| `packages/store` | `hyperchess-store` — game persistence (Postgres/SQLite/Firebase/Supabase/memory) |
+| `packages/theme` | `hyperchess-theme` — board themes and styling |
 
 Each crate and package carries its own README with details.
 

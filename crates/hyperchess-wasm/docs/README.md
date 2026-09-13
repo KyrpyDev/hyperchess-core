@@ -28,7 +28,7 @@ plain `cargo build`/`cargo test` (no wasm32 target) only touches the portable ha
 Verified via a real `wasm-pack build --target nodejs` + Node.js smoke test (not just
 `cargo build`): the resulting `.wasm` binary is **~4.5MB**, because `wgpu` (pulled in for
 `Scene3D`) compiles into the same module as `WasmBoard`, even for consumers who only want 2D
-legal-move validation and never touch the 3D renderer. The source repo's `@hyperchess/wasm`
+legal-move validation and never touch the 3D renderer. The source repo's `hyperchess-wasm`
 package (rules-only, no 3D) was necessarily smaller. This is the direct cost of the "one
 wasm-pack build target" merge decision (§12 Phase 6) — worth reconsidering once
 `packages/board-3d` (§12 Phase 8) is built: a `scene3d` Cargo feature gating `wgpu`/`camera`/

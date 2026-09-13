@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// HyperChess Core — @hyperchess/store
+// HyperChess Core — hyperchess-store
 // File: packages/store/src/types/game-record.ts
 // Version: 1.0.0
 // Copyright (c) 2026 HyperChess Developer Team
