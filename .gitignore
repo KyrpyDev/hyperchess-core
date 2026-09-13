@@ -22,3 +22,13 @@ apps/*/src-tauri/gen/
 # Env
 .env
 .env.local
+
+# ── Added 2026-09-13: agent/tooling caches and stray build sinks ──────────
+.claude/worktrees/
+.codebase-memory/
+.gitnexus/
+graphify-out/
+__pycache__/
+*.py[cod]
+hyperchess-builds/
+cargo-target/
