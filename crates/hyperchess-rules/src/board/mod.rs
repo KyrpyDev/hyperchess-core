@@ -77,6 +77,7 @@ impl Board {
         init_statics();
 
         let data = hfen::parse_hfen(hfen_str)?;
+        hfen::validate_king_count(&data.pieces)?;
 
         let mut board = Board {
             piece_bbs: [[BitBoard::EMPTY; PIECE_TYPE_CNT]; PLAYER_CNT],

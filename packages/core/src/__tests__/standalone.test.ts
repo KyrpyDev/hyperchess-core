@@ -52,7 +52,7 @@ describe('@hyperchess/core/standalone (bundler-free browser entry point)', () =>
     it('creates the default starting position', () => {
       const board = createBoard();
       expect(board.toMove).toBe('white');
-      expect(board.pieces[18]).toEqual({ type: 'K', color: 'white' });
+      expect(board.pieces[18]).toMatchObject({ type: 'K', color: 'white' });
       expect(getBoardHfen(board).split(' ')[2]).toBe('KQkq'); // all four rights available by default
     });
 
@@ -68,7 +68,7 @@ describe('@hyperchess/core/standalone (bundler-free browser entry point)', () =>
       const newBoard = applyMove(board, move);
 
       expect(newBoard.toMove).toBe('black');
-      expect(newBoard.pieces[38]).toEqual({ type: 'P', color: 'white' });
+      expect(newBoard.pieces[38]).toMatchObject({ type: 'P', color: 'white' });
       expect(newBoard.pieces[26]).toBeUndefined();
     });
 
@@ -87,7 +87,7 @@ describe('@hyperchess/core/standalone (bundler-free browser entry point)', () =>
       const undone = undoMove(newBoard);
 
       expect(undone.toMove).toBe('white');
-      expect(undone.pieces[26]).toEqual({ type: 'P', color: 'white' });
+      expect(undone.pieces[26]).toMatchObject({ type: 'P', color: 'white' });
       expect(undone.pieces[38]).toBeUndefined();
     });
   });

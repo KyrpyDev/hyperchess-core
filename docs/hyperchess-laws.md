@@ -60,10 +60,20 @@ The king starts on the g-file, so the geometry differs from classical castling
 
 ## 6. Notation
 
-- **HFEN** — HyperChess FEN: identical structure to FEN with 12 rank groups, `E`/`H` piece
-  letters, and the half-move clock counting toward 224.
-- **HSAN** — HyperChess Standard Algebraic Notation: SAN extended with `E`/`H` and 12-rank
-  coordinates. Moves in engine I/O use UCI-style coordinate notation (`g3g5`, `c11b11`).
+- **HFEN / HFEN-I** — HyperChess FEN: FEN's structure with 12 rank groups, `E`/`H` piece
+  letters, and the half-move clock counting toward 224. The `-I` variant additionally carries
+  each piece's stable **identity** character, with promoted pieces written as an inline
+  `id:Type` pair (`M:Q`).
+- **HSAN** — HyperChess Standard Algebraic Notation: SAN extended with `E`/`H` piece letters
+  and 12-rank coordinates. Moves in engine I/O use UCI-style coordinate notation instead
+  (`g3g5`, `c11b11`).
+- **HPGN-I** — the identity-aware game record: tag pairs plus movetext of `identity:uci` moves.
+
+Ranks 10-12 are two characters wide, which every parser and serializer must handle explicitly.
+
+**The full grammar and the rules governing all four formats are in
+[`docs/FORMATS.md`](FORMATS.md)** — this section is a summary, not the specification. The
+normative definition is the workspace's `docs/baremetal-hyperchess-notations-v01.md`.
 
 ---
 

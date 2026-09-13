@@ -33,6 +33,14 @@ pub fn bit_scan_reverse(b: u64) -> u8 {
 }
 
 /// Returns the least significant bit as a u64.
+//
+// Clippy 1.98+ suggests `b.isolate_lowest_one()` here (manual_isolate_lowest_one).
+// That method is still unstable on 1.96 (`isolate_most_least_significant_one`), so
+// taking the suggestion would raise this crate's effective minimum toolchain just to
+// satisfy a lint. The `unknown_lints` allow keeps the attribute harmless on older
+// clippy versions, which do not know the lint name at all.
+#[allow(unknown_lints)]
+#[allow(clippy::manual_isolate_lowest_one)]
 #[inline(always)]
 pub fn lsb(b: u64) -> u64 {
     b & b.wrapping_neg()

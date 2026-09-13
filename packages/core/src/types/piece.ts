@@ -13,6 +13,20 @@ export type PieceType = 'P' | 'N' | 'B' | 'R' | 'Q' | 'K' | 'E' | 'H';
 export interface Piece {
   type: PieceType;
   color: Color;
+
+  /**
+   * The piece's stable HFEN-I identity character, when known.
+   *
+   * Identity is *which individual piece* this is — the pawn that started on
+   * a3 stays `M` for the whole game, including after it promotes. It is
+   * metadata: it never affects legality or move generation.
+   *
+   * Optional because a board built from a legacy, type-only HFEN has no
+   * identity to carry. When it IS present, `getBoardHfen` round-trips it, so
+   * the SDK stops silently discarding identity every time it re-serializes a
+   * position for the engine.
+   */
+  identity?: string;
 }
 
 /** Piece position on board */

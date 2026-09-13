@@ -266,6 +266,29 @@ pub fn strip_identity(hpgn: &str) -> &str {
     hpgn.rsplit(':').next().unwrap_or(hpgn)
 }
 
+/// Split an HPGN-I token into its optional identity prefix and its UCI tail.
+///
+/// `"M:a3a4"` -> `(Some('M'), "a3a4")`; `"a3a4"` -> `(None, "a3a4")`.
+///
+/// The identity half is returned so callers can *verify* it against the piece
+/// actually standing on the source square. HPGN-I's whole reason to exist is
+/// that the record says which individual piece moved; a prefix that is never
+/// checked is a comment, not a record, and cannot detect a corrupted or
+/// hand-edited game file.
+pub fn split_identity(hpgn: &str) -> (Option<char>, &str) {
+    match hpgn.split_once(':') {
+        Some((id, uci)) => {
+            let mut chars = id.chars();
+            match (chars.next(), chars.next()) {
+                (Some(c), None) => (Some(c), uci),
+                // Not a single-character prefix: not an identity prefix.
+                _ => (None, hpgn),
+            }
+        }
+        None => (None, hpgn),
+    }
+}
+
 impl fmt::Display for HyperMove {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.stringify())

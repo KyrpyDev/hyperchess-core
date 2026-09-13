@@ -83,7 +83,7 @@ describe('@hyperchess/core - Game State Machine', () => {
 
     expect(result).toBeDefined();
     expect(result?.moves[result.moves.length - 1]).toBe('e6d7');
-    expect(result?.board.pieces[75]).toEqual({ type: 'P', color: 'white' }); // d7 now holds the white pawn
+    expect(result?.board.pieces[75]).toMatchObject({ type: 'P', color: 'white' }); // d7 now holds the white pawn
   });
 
   it('prevents moves that leave king in check', () => {
@@ -138,8 +138,8 @@ describe('@hyperchess/core - Game State Machine', () => {
     expect(game.board.pieces[75]?.color).toBe('white');
 
     game = removeLastMove(game);
-    expect(game.board.pieces[64]).toEqual({ type: 'P', color: 'white' }); // back on e6
-    expect(game.board.pieces[75]).toEqual({ type: 'P', color: 'black' }); // black pawn restored on d7
+    expect(game.board.pieces[64]).toMatchObject({ type: 'P', color: 'white' }); // back on e6
+    expect(game.board.pieces[75]).toMatchObject({ type: 'P', color: 'black' }); // black pawn restored on d7
   });
 
   it('reports active status for ongoing games', () => {
@@ -172,14 +172,14 @@ describe('@hyperchess/core - Game State Machine', () => {
     let result = addMove(kingSide, 'O-O');
     expect(result).not.toBeNull();
     expect(result!.moves[0]).toBe('g2i2'); // Game.moves records algebraic notation, even for HSAN-notated input
-    expect(result!.board.pieces[20]).toEqual({ type: 'K', color: 'white' }); // king → i2
-    expect(result!.board.pieces[19]).toEqual({ type: 'R', color: 'white' }); // rook → h2
+    expect(result!.board.pieces[20]).toMatchObject({ type: 'K', color: 'white' }); // king → i2
+    expect(result!.board.pieces[19]).toMatchObject({ type: 'R', color: 'white' }); // rook → h2
 
     const queenSide = createGame(hfen);
     result = addMove(queenSide, 'O-O-O');
     expect(result).not.toBeNull();
     expect(result!.moves[0]).toBe('g2e2');
-    expect(result!.board.pieces[16]).toEqual({ type: 'K', color: 'white' }); // king → e2
-    expect(result!.board.pieces[17]).toEqual({ type: 'R', color: 'white' }); // rook → f2
+    expect(result!.board.pieces[16]).toMatchObject({ type: 'K', color: 'white' }); // king → e2
+    expect(result!.board.pieces[17]).toMatchObject({ type: 'R', color: 'white' }); // rook → f2
   });
 });

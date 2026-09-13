@@ -23,7 +23,7 @@ describe('@hyperchess/board - Vue useBoardState', () => {
     // engine requires both to be present.
     const hfen = '11K/12/12/12/12/3p8/4P7/12/12/12/12/11k w - - 0 1';
     const { board } = useBoardState(hfen);
-    expect(board.value?.pieces[64]).toEqual({ type: 'P', color: 'white' });
+    expect(board.value?.pieces[64]).toMatchObject({ type: 'P', color: 'white' });
   });
 
   it('initializes from a pre-built Board object', () => {
@@ -54,7 +54,7 @@ describe('@hyperchess/board - Vue useBoardState', () => {
     selectSquare(destSquare);
 
     expect(board.value?.toMove).toBe('black'); // move applied, turn passed
-    expect(board.value?.pieces[destSquare]).toEqual({ type: 'P', color: 'white' });
+    expect(board.value?.pieces[destSquare]).toMatchObject({ type: 'P', color: 'white' });
     expect(selection.value.selectedSquare).toBeNull();
     expect(selection.value.lastMove).toEqual({ from: pawnSquare, to: destSquare });
   });
@@ -84,7 +84,7 @@ describe('@hyperchess/board - Vue useBoardState', () => {
     reset();
 
     expect(board.value?.toMove).toBe('white');
-    expect(board.value?.pieces[26]).toEqual({ type: 'P', color: 'white' });
+    expect(board.value?.pieces[26]).toMatchObject({ type: 'P', color: 'white' });
     expect(selection.value.selectedSquare).toBeNull();
     expect(selection.value.lastMove).toBeNull();
   });

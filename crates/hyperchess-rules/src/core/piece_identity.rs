@@ -32,6 +32,22 @@ pub fn is_identity_char(c: char) -> bool {
     matches!(c, 'A'..='X' | 'a'..='x')
 }
 
+/// Returns true when `c` is a legal **inline promotion type** letter for an
+/// `id:Type` pair — the promotion set `Q R B N E H` in either case.
+///
+/// HFEN-I law: the string is self-contained. The type half of an `id:Type`
+/// pair is the piece's *current* type, and the only way a piece's type can
+/// differ from its identity's starting type is promotion — so the type half
+/// is restricted to the promotion set. Accepting `K` or `P` here would let a
+/// string describe a position no game can reach (a second king, or a pair
+/// that says nothing).
+pub fn is_promotion_type_char(c: char) -> bool {
+    matches!(
+        c,
+        'Q' | 'R' | 'B' | 'N' | 'E' | 'H' | 'q' | 'r' | 'b' | 'n' | 'e' | 'h'
+    )
+}
+
 /// Returns true when `c` is an ordinary type-based HyperChess HFEN character.
 pub fn is_legacy_piece_char(c: char) -> bool {
     matches!(
