@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: Security vulnerability (private)
-    url: https://github.com/hyperchessdev/hyperchess-core/security/advisories/new
+    url: https://github.com/KyrpyDev/hyperchess-core/security/advisories/new
     about: Please report security issues privately, never as public issues.
   - name: Questions & ideas
-    url: https://github.com/hyperchessdev/hyperchess-core/discussions
+    url: https://github.com/KyrpyDev/hyperchess-core/discussions
     about: For questions, show-and-tell, and open-ended design ideas, use Discussions.

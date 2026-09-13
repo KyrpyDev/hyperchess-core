@@ -39,12 +39,12 @@
   "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hyperchessdev/hyperchess-core.git",
+    "url": "git+https://github.com/KyrpyDev/hyperchess-core.git",
     "directory": "packages/core"
   },
-  "homepage": "https://github.com/hyperchessdev/hyperchess-core#readme",
+  "homepage": "https://github.com/KyrpyDev/hyperchess-core#readme",
   "bugs": {
-    "url": "https://github.com/hyperchessdev/hyperchess-core/issues"
+    "url": "https://github.com/KyrpyDev/hyperchess-core/issues"
   },
   "publishConfig": {
     "access": "public"

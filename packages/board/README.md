@@ -1,6 +1,6 @@
 # @hyperchess/board
 
-2D board UI for [HyperChess](https://github.com/hyperchessdev/hyperchess-core) — the 12×12 chess
+2D board UI for [HyperChess](https://github.com/KyrpyDev/hyperchess-core) — the 12×12 chess
 variant with Eagle and Hawk pieces. One package, three framework targets:
 
 ```js
@@ -35,6 +35,6 @@ logic from [`@hyperchess/core`](https://www.npmjs.com/package/@hyperchess/core).
 Rust engine (best-move search) use
 [`@hyperchess/wasm`](https://www.npmjs.com/package/@hyperchess/wasm).
 
-Part of the [HyperChess Core](https://github.com/hyperchessdev/hyperchess-core) monorepo —
+Part of the [HyperChess Core](https://github.com/KyrpyDev/hyperchess-core) monorepo —
 see the repository README for the full stack, contributing guide, and license
 (GPL-3.0-or-later).

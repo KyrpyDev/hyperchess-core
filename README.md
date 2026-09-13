@@ -1,6 +1,6 @@
 # HyperChess Core
 
-[![CI](https://github.com/hyperchessdev/hyperchess-core/actions/workflows/ci.yml/badge.svg)](https://github.com/hyperchessdev/hyperchess-core/actions/workflows/ci.yml)
+[![CI](https://github.com/KyrpyDev/hyperchess-core/actions/workflows/ci.yml/badge.svg)](https://github.com/KyrpyDev/hyperchess-core/actions/workflows/ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 **The open-source engine for HyperChess** — a chess variant played on a **12×12 board** with two
@@ -185,7 +185,7 @@ rather than linking against it.
 
 Contributions are warmly welcome — engine strength, docs, ports, UI, test positions, all of it.
 Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the
-[good first issues](https://github.com/hyperchessdev/hyperchess-core/labels/good%20first%20issue).
+[good first issues](https://github.com/KyrpyDev/hyperchess-core/labels/good%20first%20issue).
 Please note the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Acknowledgments

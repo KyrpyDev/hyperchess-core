@@ -6,7 +6,7 @@ Engine strength, documentation, test positions, UI components, ports, benchmarks
 ## Ways to contribute
 
 - **Good first issues** — look for the
-  [`good first issue`](https://github.com/hyperchessdev/hyperchess-core/labels/good%20first%20issue)
+  [`good first issue`](https://github.com/KyrpyDev/hyperchess-core/labels/good%20first%20issue)
   label.
 - **Engine strength** — search heuristics, evaluation terms, and tuning (see the
   [search architecture guide](docs/search-architecture.md) and its tuning table).
@@ -24,7 +24,7 @@ Prerequisites:
 - **wasm-pack** — only needed for the WASM SDK (`packages/wasm`)
 
 ```bash
-git clone https://github.com/hyperchessdev/hyperchess-core.git
+git clone https://github.com/KyrpyDev/hyperchess-core.git
 cd hyperchess-core
 
 # Rust engine
@@ -73,7 +73,7 @@ issues with `#123` where relevant.
 
 ## Reporting bugs and proposing features
 
-Use the [issue templates](https://github.com/hyperchessdev/hyperchess-core/issues/new/choose).
+Use the [issue templates](https://github.com/KyrpyDev/hyperchess-core/issues/new/choose).
 For bugs, an HFEN position and a move sequence that reproduces the problem is worth a thousand
 words. For security-sensitive reports, **do not open a public issue** — see
 [SECURITY.md](SECURITY.md).

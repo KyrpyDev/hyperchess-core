@@ -18,7 +18,7 @@ guidelines.
 ## Clone and compile
 
 ```bash
-git clone https://github.com/hyperchessdev/hyperchess-core.git
+git clone https://github.com/KyrpyDev/hyperchess-core.git
 cd hyperchess-core
 cargo build --workspace
 ```

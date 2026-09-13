@@ -14,5 +14,5 @@ edition = "2021"
 license = "GPL-3.0-or-later"
 # Public home (crates.io metadata). Day-to-day development also runs on a
 # private GitLab; the GitHub repo is the canonical open-source location.
-repository = "https://github.com/hyperchessdev/hyperchess-core"
-homepage = "https://github.com/hyperchessdev/hyperchess-core"
+repository = "https://github.com/KyrpyDev/hyperchess-core"
+homepage = "https://github.com/KyrpyDev/hyperchess-core"

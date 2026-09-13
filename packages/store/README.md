@@ -1,6 +1,6 @@
 # @hyperchess/store
 
-Game persistence for [HyperChess](https://github.com/hyperchessdev/hyperchess-core) — one
+Game persistence for [HyperChess](https://github.com/KyrpyDev/hyperchess-core) — one
 `GameStore` interface, five adapters. Save, load, list, and watch games without coupling your app
 to a backend.
 
@@ -36,6 +36,6 @@ All adapters implement the same `GameStore` interface (`saveGame`, `loadGame`, `
 swapping backends is a one-line change. `syncStores` copies games between two stores — e.g.
 local SQLite up to Postgres.
 
-Part of the [HyperChess Core](https://github.com/hyperchessdev/hyperchess-core) monorepo —
+Part of the [HyperChess Core](https://github.com/KyrpyDev/hyperchess-core) monorepo —
 see the repository README for the full stack, contributing guide, and license
 (GPL-3.0-or-later).

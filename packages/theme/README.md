@@ -1,6 +1,6 @@
 # @hyperchess/theme
 
-Board themes and styling for [HyperChess](https://github.com/hyperchessdev/hyperchess-core) —
+Board themes and styling for [HyperChess](https://github.com/KyrpyDev/hyperchess-core) —
 color palettes and piece styling for the 12×12 board, consumed by
 [`@hyperchess/board`](https://www.npmjs.com/package/@hyperchess/board) and usable standalone.
 
@@ -23,6 +23,6 @@ const myTheme = { ...THEME_CLASSIC, darkSquare: '#4a7c59' };
 
 No runtime dependencies.
 
-Part of the [HyperChess Core](https://github.com/hyperchessdev/hyperchess-core) monorepo —
+Part of the [HyperChess Core](https://github.com/KyrpyDev/hyperchess-core) monorepo —
 see the repository README for the full stack, contributing guide, and license
 (GPL-3.0-or-later).

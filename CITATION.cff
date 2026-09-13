@@ -4,8 +4,8 @@ title: "HyperChess Core"
 type: software
 authors:
   - name: "HyperChess Developer Team"
-repository-code: "https://github.com/hyperchessdev/hyperchess-core"
-url: "https://github.com/hyperchessdev/hyperchess-core"
+repository-code: "https://github.com/KyrpyDev/hyperchess-core"
+url: "https://github.com/KyrpyDev/hyperchess-core"
 license: GPL-3.0-or-later
 keywords:
   - chess
