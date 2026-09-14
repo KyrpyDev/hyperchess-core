@@ -13,19 +13,19 @@
     "dev": "pnpm -r --if-present dev"
   },
   "devDependencies": {
-    "turbo": "^2.10.5",
-    "@size-limit/webpack": "^10.0.0",
-    "@types/node": "^20.19.43",
-    "@types/react": "^19.2.17",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitejs/plugin-react": "^4.1.0",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "eslint": "^8.50.0",
-    "prettier": "^3.0.0",
-    "size-limit": "^10.0.0",
-    "typescript": "^5.2.0",
-    "vite": "^5.0.0",
-    "vitest": "^0.34.0"
+    "turbo": "^2.10.12",
+    "@size-limit/webpack": "^13.0.3",
+    "@types/node": "^26.5.1",
+    "@types/react": "^19.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "eslint": "^10.10.0",
+    "prettier": "^3.9.6",
+    "size-limit": "^13.0.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0",
+    "vitest": "^5.0.0"
   }
 }
