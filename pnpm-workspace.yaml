@@ -1,6 +1,8 @@
 packages:
   - "packages/*"
   - "apps/*"
+overrides:
+  nanoid@<3.3.18: ">=3.3.18"
 allowBuilds:
   '@firebase/util': false
   better-sqlite3: false
