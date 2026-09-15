@@ -1,0 +1,29 @@
+# Resolution: Fix Node 20 deprecation warning, nanoid vuln, and bump pnpm in hyrperchess-core CI
+
+## Validation Checklist
+- [x] Verify `pnpm/action-setup@v6`'s action.yml declares `using: node24` (vs v4's `node20`)
+- [x] Verify CI green after action-setup bump (run 34843353451: success)
+- [x] Verify `pnpm audit --prod --audit-level high` clean locally after nanoid override
+- [x] Verify `pnpm run build` clean across all 6 workspace packages after nanoid override
+- [x] Verify CI + Security audit both green after nanoid fix (runs 34863741435, 34863741455: success)
+- [x] Verify `pnpm audit`, `pnpm run build`, and full test suite (72/72 tests) clean under pnpm 12.4.1
+- [x] Verify CI + Security audit both green after pnpm bump (runs 34988213019, 34988212983: success)
+- [x] Verify both `github` and `gitlab` remotes are in sync on `main` after every push
+
+## Outcomes / Summary
+All three fixes landed on `hyrperchess-core`'s `main` branch, pushed to both `github` and `gitlab`
+remotes, and verified green in CI end to end:
+
+1. `ci: bump pnpm/action-setup to v6 to fix Node 20 deprecation warning` (5dae05f)
+2. `fix(deps): override nanoid to patch high-severity DoS vulnerability` (9b5a39b)
+3. `docs: add session dev report ...` (78a8262)
+4. `chore(deps): bump pnpm to 12.4.1` (0ae566e)
+5. `docs: update session dev report with pnpm 12.4.1 bump` (69c870b)
+
+Full narrative, root causes, and decisions of record are in the session dev report:
+`docs/dev-reports/20260914-191338-dev-report.md` (also committed inside `hyrperchess-core` at the
+same path).
+
+**Process note:** this todo trio was created retroactively, after the work was already complete,
+because the task_management.md trio-creation step was skipped at session start. Future sessions
+should create the trio as step one, even for what looks like a small reactive CI fix.
