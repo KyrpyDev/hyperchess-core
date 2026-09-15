@@ -18,7 +18,7 @@ does — browsers, Node.js, serverless, and native.
 | Rule | Classical chess | HyperChess |
 |---|---|---|
 | Board | 8×8 | **12×12** (files `a–l`, ranks `1–12`) |
-| Pieces per side | 16 | **24** — adds 2 Eagles and 2 Hawks |
+| Pieces per side | 16 | **24** — adds 4 pawns, 2 Eagles and 2 Hawks |
 | Eagle | — | Jumps & captures up to **4 squares orthogonally**, over pieces |
 | Hawk | — | Jumps & captures up to **4 squares diagonally**, over pieces |
 | Setup | ranks 1–2 / 7–8 | ranks **2–3** / **10–11** (ranks 1 and 12 start empty) |
