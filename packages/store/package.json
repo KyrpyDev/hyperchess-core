@@ -60,9 +60,9 @@
     "hyperchess-core": "workspace:*"
   },
   "devDependencies": {
-    "firebase": "^12.0.0",
-    "typescript": "^5.2.0",
-    "vitest": "^0.34.0"
+    "firebase": "^12.19.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
   },
   "files": [
     "dist",
